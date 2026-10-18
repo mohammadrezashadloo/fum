@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آموزش کامل خوشه‌بندی فازی (FCM) با فونت شکیل</title>
+    
+    <!-- فراخوانی فونت‌های فارسی شکیل از گوگل فونتس -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- فراخوانی کتابخانه MathJax برای رندر دقیق فرمول‌های ریاضی -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+    <style>
+        :root {
+            --primary: #1a5276;
+            --secondary: #2980b9;
+            --bg-light: #f8f9fa;
+            --border: #dee2e6;
+            --text: #2c3e50;
+            --warning: #e67e22;
+            --success: #27ae60;
+            --danger: #c0392b;
+            --font-main: 'Vazirmatn', sans-serif;
+        }
+        
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-main);
+            font-weight: 400;
+            line-height: 2;
+            color: var(--text);
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 45px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+        }
+        
+        h1 {
+            font-family: var(--font-main);
+            font-weight: 900;
+            text-align: center;
+            color: var(--primary);
+            border-bottom: 4px solid var(--secondary);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
+            font-size: 2em;
+            letter-spacing: -0.5px;
+        }
+        
+        h2 {
+            font-family: var(--font-main);
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            padding: 12px 25px;
+            border-radius: 10px;
+            margin-top: 50px;
+            font-size: 1.35em;
+            box-shadow: 0 4px 15px rgba(41, 128, 185, 0.3);
+        }
+        
+        h3 {
+            font-family: var(--font-main);
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 35px;
+            border-right: 5px solid var(--warning);
+            padding-right: 15px;
+            font-size: 1.15em;
+        }
+        
+        p, li {
+            text-align: justify;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+        
+        li { margin-bottom: 10px; }
+        
+        .story-box {
+            background: linear-gradient(135deg, #eaf2f8, #d6eaf8);
+            border-right: 6px solid var(--secondary);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            font-weight: 400;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        
+        .formula-box {
+            background-color: var(--bg-light);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.02);
+            direction: ltr;
+        }
+        
+        .component-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 25px 0;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+        }
+        
+        .component-table th, .component-table td {
+            padding: 18px 20px;
+            text-align: right;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        
+        .component-table th {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            color: var(--primary);
+            font-family: var(--font-main);
+            font-weight: 700;
+            font-size: 1.05em;
+        }
+        
+        .component-table .math-cell {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.25em;
+            color: var(--danger);
+            font-weight: bold;
+            direction: ltr;
+            text-align: center;
+            width: 28%;
+            background-color: #fdf2f2;
+        }
+        
+        .component-table tr:last-child td { border-bottom: none; }
+        .component-table tr:hover td { background-color: #f8fafc; }
+        .component-table tr:hover .math-cell { background-color: #fce4e4; }
+        
+        .graphic-container {
+            display: flex;
+            justify-content: center;
+            margin: 35px 0;
+            background-color: #fcfcfc;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px dashed var(--secondary);
+            overflow-x: auto;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.02);
+        }
+        
+        svg text { font-family: var(--font-main); }
+        .svg-label { font-size: 13px; fill: #333; font-weight: 400; }
+        .svg-title { font-size: 17px; font-weight: 700; fill: var(--primary); }
+        
+        .part-box {
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .part-box.goal { background: #f0fdf4; border-right: 5px solid var(--success); }
+        .part-box.rule { background: #fef2f2; border-right: 5px solid var(--danger); }
+
+        /* --- استایل‌های شبیه‌ساز تعاملی --- */
+        .simulator-box {
+            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+            color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 50px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .simulator-box h3 {
+            color: #00d2ff;
+            border-right: none;
+            margin-top: 0;
+            font-size: 1.4em;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+        }
+        
+        .canvas-container {
+            position: relative;
+            display: inline-block;
+            border: 2px solid #00d2ff;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
+            overflow: hidden;
+            max-width: 100%;
+            margin: 10px 0;
+        }
+        
+        canvas {
+            background-color: #2a2a40;
+            cursor: crosshair;
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .sim-controls {
+            margin: 25px auto;
+            max-width: 800px;
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sim-controls button {
+            background: linear-gradient(135deg, #00d2ff, #0088cc);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 0 8px;
+            transition: all 0.3s ease;
+            font-family: var(--font-main);
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+        }
+        
+        .sim-controls button:hover {
+            background: linear-gradient(135deg, #fff, #e0e0e0);
+            color: #1e1e2f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,255,255,0.3);
+        }
+        
+        .sim-legend {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #aaa;
+            font-weight: 400;
+        }
+        
+        .sim-table-container {
+            max-width: 800px;
+            margin: 25px auto;
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            max-height: 280px;
+            overflow-y: auto;
+        }
+        
+        .sim-table-container table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        
+        .sim-table-container th, .sim-table-container td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-family: var(--font-main);
+        }
+        
+        .sim-table-container th {
+            color: #00d2ff;
+            font-weight: 700;
+            background: rgba(0, 210, 255, 0.1);
+            position: sticky;
+            top: 0;
+        }
+        
+        .sim-table-container tr:hover td { background: rgba(255,255,255,0.03); }
+        
+        .sc1 { color: #ff4d4d; font-weight: 700; }
+        .sc2 { color: #4dff4d; font-weight: 700; }
+        .sc3 { color: #4d4dff; font-weight: 700; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>آموزش کامل و تشریح اجزای ریاضیات خوشه‌بندی فازی (FCM)</h1>
+
+    <!-- ========================================== -->
+    <!-- مقدمه و مفهوم خوشه‌بندی فازی -->
+    <!-- ========================================== -->
+    <h2>مقدمه: خوشه‌بندی فازی چیست؟</h2>
+    
+    <div class="story-box">
+        <strong>یک مثال ساده برای شروع:</strong><br>
+        فرض کنید می‌خواهید یک جعبه پر از میوه‌های مختلف را دسته‌بندی کنید. در روش‌های معمولی (مثل K-Means)، هر میوه یا کاملاً در سبد سیب‌ها می‌رود یا کاملاً در سبد پرتقال‌ها! اما در دنیای واقعی، گاهی یک میوه شبیه به هر دو است (مثلاً یک نارنگی که ۷۰٪ شبیه پرتقال و ۳۰٪ شبیه لیمو است). 
+        <br><br>
+        <strong>خوشه‌بندی فازی (Fuzzy Clustering)</strong> دقیقاً برای همین مواقع ساخته شده است. در این روش، برخلاف روش‌های قطعی، یک داده می‌تواند همزمان با درجات مختلف (بین ۰ تا ۱) به چندین خوشه تعلق داشته باشد. به این درجه تعلق، <strong>«درجه عضویت» (Degree of Membership)</strong> می‌گویند.
+    </div>
+
+    <p>به شکل زیر نگاه کنید. تفاوت اصلی در این است که در روش قطعی، یک داده فقط ۱۰۰٪ به یک خوشه تعلق دارد، اما در روش فازی، داده‌های مرزی با درصدهای مختلف بین خوشه‌ها تقسیم می‌شوند:</p>
+
+    <div class="graphic-container">
+        <!-- نمودار SVG بازطراحی شده برای مقایسه K-Means و Fuzzy -->
+        <svg width="800" height="340" viewBox="0 0 800 340">
+            <defs>
+                <!-- تعریف گرادیانت برای مرز نرم فازی -->
+                <linearGradient id="fuzzyBorder" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#8e44ad" stop-opacity="0.8" />
+                    <stop offset="100%" stop-color="#e67e22" stop-opacity="0.8" />
+                </linearGradient>
+            </defs>
+            
+            <rect width="800" height="340" fill="#fcfcfc" rx="10"/>
+            
+            <!-- ================= بخش چپ: خوشه بندی قطعی (K-Means) ================= -->
+            <text x="200" y="30" text-anchor="middle" class="svg-title" fill="#c0392b">خوشه‌بندی قطعی (K-Means)</text>
+            
+            <!-- ناحیه خوشه 1 -->
+            <rect x="50" y="60" width="140" height="240" fill="#fadbd8" opacity="0.4" rx="10" />
+            <!-- ناحیه خوشه 2 -->
+            <rect x="210" y="60" width="140" height="240" fill="#d5f5e3" opacity="0.4" rx="10" />
+            
+            <!-- خط مرز سخت -->
+            <line x1="200" y1="60" x2="200" y2="300" stroke="#000" stroke-width="3" stroke-dasharray="10,5" />
+            <text x="200" y="55" text-anchor="middle" class="svg-label" font-weight="bold">مرز سخت</text>
+
+            <!-- مراکز -->
+            <circle cx="120" cy="180" r="12" fill="#c0392b"/>
+            <text x="120" y="155" text-anchor="middle" class="svg-label" fill="#c0392b">مرکز ۱</text>
+            <circle cx="280" cy="180" r="12" fill="#27ae60"/>
+            <text x="280" y="155" text-anchor="middle" class="svg-label" fill="#27ae60">مرکز ۲</text>
+            
+            <!-- داده‌های سمت چپ -->
+            <circle cx="80" cy="100" r="7" fill="#c0392b"/>
+            <circle cx="150" cy="120" r="7" fill="#c0392b"/>
+            <circle cx="100" cy="250" r="7" fill="#c0392b"/>
+            <circle cx="160" cy="220" r="7" fill="#c0392b"/>
+            
+            <!-- داده‌های سمت راست -->
+            <circle cx="250" cy="100" r="7" fill="#27ae60"/>
+            <circle cx="320" cy="130" r="7" fill="#27ae60"/>
+            <circle cx="230" cy="250" r="7" fill="#27ae60"/>
+            <circle cx="300" cy="220" r="7" fill="#27ae60"/>
+            
+            <!-- داده مرزی (در K-Means: فقط یک رنگ) -->
+            <circle cx="200" cy="180" r="10" fill="#c0392b" stroke="#000" stroke-width="2"/>
+            <text x="200" y="210" text-anchor="middle" class="svg-label" font-weight="bold" fill="#000">داده مرزی</text>
+            <text x="200" y="225" text-anchor="middle" class="svg-label" fill="#c0392b">۱۰۰٪ خوشه ۱</text>
+
+
+            <!-- ================= بخش راست: خوشه بندی فازی (Fuzzy) ================= -->
+            <text x="600" y="30" text-anchor="middle" class="svg-title" fill="#8e44ad">خوشه‌بندی فازی (Fuzzy)</text>
+            
+            <!-- ناحیه خوشه 1 -->
+            <rect x="450" y="60" width="140" height="240" fill="#f4ecf7" opacity="0.4" rx="10" />
+            <!-- ناحیه خوشه 2 -->
+            <rect x="610" y="60" width="140" height="240" fill="#fef9e7" opacity="0.4" rx="10" />
+            
+            <!-- ناحیه مرزی محو (نشان‌دهنده همپوشانی) -->
+            <rect x="570" y="60" width="60" height="240" fill="url(#fuzzyBorder)" opacity="0.3" />
+            <text x="600" y="55" text-anchor="middle" class="svg-label" font-weight="bold" fill="#8e44ad">ناحیه همپوشانی</text>
+
+            <!-- مراکز -->
+            <circle cx="520" cy="180" r="12" fill="#8e44ad"/>
+            <text x="520" y="155" text-anchor="middle" class="svg-label" fill="#8e44ad">مرکز ۱</text>
+            <circle cx="680" cy="180" r="12" fill="#e67e22"/>
+            <text x="680" y="155" text-anchor="middle" class="svg-label" fill="#e67e22">مرکز ۲</text>
+            
+            <!-- داده‌های سمت چپ -->
+            <circle cx="480" cy="100" r="7" fill="#8e44ad"/>
+            <circle cx="550" cy="120" r="7" fill="#8e44ad"/>
+            <circle cx="500" cy="250" r="7" fill="#8e44ad"/>
+            <circle cx="560" cy="220" r="7" fill="#8e44ad"/>
+            
+            <!-- داده‌های سمت راست -->
+            <circle cx="650" cy="100" r="7" fill="#e67e22"/>
+            <circle cx="720" cy="130" r="7" fill="#e67e22"/>
+            <circle cx="630" cy="250" r="7" fill="#e67e22"/>
+            <circle cx="700" cy="220" r="7" fill="#e67e22"/>
+            
+            <!-- داده مرزی (در Fuzzy: دایره رنگ ترکیبی) -->
+            <circle cx="600" cy="180" r="10" fill="#8e44ad" stroke="#000" stroke-width="2"/>
+            <path d="M 600 170 A 10 10 0 0 1 600 190 Z" fill="#e67e22" stroke="none" />
+            <text x="600" y="210" text-anchor="middle" class="svg-label" font-weight="bold" fill="#000">داده مرزی</text>
+            <text x="600" y="225" text-anchor="middle" class="svg-label" fill="#8e44ad">۶۰٪ خوشه ۱ + ۴۰٪ خوشه ۲</text>
+
+            <!-- خط جداکننده -->
+            <line x1="400" y1="40" x2="400" y2="320" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="10,5"/>
+            <text x="400" y="335" text-anchor="middle" class="svg-label" fill="#7f8c8d">مرز مقایسه</text>
+        </svg>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- بخش ۱: تابع هدف -->
+    <!-- ========================================== -->
+    <h2>گام اول: تابع هدف (Objective Function) و تک‌تک اجزای آن</h2>
+    <p>قبل از هر چیز، باید به کامپیوتر بگوییم هدفش چیست. ما می‌خواهیم کامپیوتر کاری کند که فاصله داده‌ها تا مراکز خوشه‌ها تا حد امکان <strong>کم</strong> شود. اما یک قانون مهم هم داریم: مجموع درصد تعلق یک داده به همه خوشه‌ها باید دقیقاً <strong>۱۰۰٪ (یا همان ۱)</strong> باشد. برای ترکیب این هدف و این قانون، از یک فرمول به نام «تابع لاگرانژین» استفاده می‌کنیم:</p>
+    
+    <div class="formula-box">
+        $$ L(U, V, \lambda) = \underbrace{\sum_{i=1}^{N} \sum_{j=1}^{C} u_{ij}^m d(x_i, v_j)}_{\text{Part 1}} - \underbrace{\sum_{i=1}^{N} \lambda_i \left( \sum_{j=1}^{C} u_{ij} - 1 \right)}_{\text{Part 2}} $$
+    </div>
+
+    <h3>تشریح تک‌تک اجزای این فرمول:</h3>
+    
+    <table class="component-table">
+        <thead>
+            <tr>
+                <th>جزء فرمول</th>
+                <th>نام و توضیح کامل</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="math-cell">$L(U, V, \lambda)$</td>
+                <td><strong>تابع لاگرانژین (Lagrangian):</strong> نام کل تابع هدف. پارامترهای آن عبارتند از: ماتریس عضویت $U$، ماتریس مراکز $V$، و ضرایب لاگرانژ $\lambda$. هدف نهایی، کمینه کردن (Minimizing) این تابع است.</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$N$</td>
+                <td><strong>تعداد کل داده‌ها:</strong> مثلاً اگر ۱۰۰ میوه داشته باشیم، $N=100$ است. این عدد در هر دو سیگمای فرمول ظاهر می‌شود.</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$C$</td>
+                <td><strong>تعداد کل خوشه‌ها:</strong> مثلاً اگر بخواهیم میوه‌ها را به ۳ سبد تقسیم کنیم، $C=3$ است. این عدد در سیگمای داخلی (روی خوشه‌ها) ظاهر می‌شود.</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$i$</td>
+                <td><strong>اندیس داده:</strong> شمارنده‌ای است که از ۱ تا $N$ تغییر می‌کند و نمایانگر داده $i$-ام است (مثلاً میوه شماره ۵).</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$j$</td>
+                <td><strong>اندیس خوشه:</strong> شمارنده‌ای است که از ۱ تا $C$ تغییر می‌کند و نمایانگر خوشه $j$-ام است (مثلاً سبد سیب‌ها).</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$x_i$</td>
+                <td><strong>بردار داده $i$-ام:</strong> ویژگی‌های عددی داده $i$-ام. مثلاً برای یک میوه می‌تواند [قطر، وزن، رنگ] باشد.</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$v_j$ (یا $\mu_j$)</td>
+                <td><strong>مرکز خوشه $j$-ام:</strong> نقطه‌ای در فضای ویژگی‌ها که نماینده (میانگین وزنی) داده‌های آن خوشه است. ما به دنبال پیدا کردن بهترین مکان برای این مراکز هستیم.</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$u_{ij}$</td>
+                <td><strong>درجه عضویت (Degree of Membership):</strong> مهم‌ترین متغیر! نشان می‌دهد داده $i$-ام با چه احتمالی (عددی بین ۰ و ۱) عضو خوشه $j$-ام است. مثلاً $u_{23} = 0.8$ یعنی داده دوم ۸۰٪ به خوشه سوم تعلق دارد.</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$m$ (پارامتر فازی)</td>
+                <td><strong>Fuzzifier:</strong> عددی بزرگتر از ۱ (معمولاً ۲). این پارامتر تعیین می‌کند که خوشه‌بندی چقدر "فازی" (مبهم) باشد. اگر $m \to 1$ شود، الگوریتم به K-Means (قطعی) نزدیک می‌شود. اگر $m$ بزرگ باشد، داده‌ها با درصدهای یکنواخت‌تر بین خوشه‌ها پخش می‌شوند.</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$d(x_i, v_j)$</td>
+                <td><strong>تابع فاصله (Distance):</strong> فاصله بین داده $i$ و مرکز خوشه $j$. معمولاً فاصله اقلیدسی است: $d = \sqrt{(x_{i1}-v_{j1})^2 + (x_{i2}-v_{j2})^2 + \dots}$</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$\lambda_i$ (لامبدا)</td>
+                <td><strong>ضریب لاگرانژ:</strong> یک متغیر کمکی که برای اعمال قید (مجموع عضویت‌ها = ۱) به فرمول اضافه شده است. اگر مجموع عضویت‌های داده $i$ برابر ۱ نباشد، این جمله تابع را جریمه می‌کند.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>تشریح دو بخش اصلی:</h3>
+    
+    <div class="part-box goal">
+        <strong style="color: var(--success);">🟢 بخش اول (هدف اصلی): $\sum_{i=1}^{N} \sum_{j=1}^{C} u_{ij}^m d(x_i, v_j)$</strong>
+        <p style="margin-top: 10px; margin-bottom: 0;">این بخش می‌خواهد مجموع فاصله داده‌ها تا مراکز خوشه‌ها را کمینه کند. اما چون فازی است، فاصله هر داده تا هر خوشه در وزن عضویت آن داده به توان $m$ ضرب می‌شود ($u_{ij}^m$). یعنی اگر داده‌ای عضویت بالایی در یک خوشه داشته باشد، فاصله‌اش با آن خوشه تأثیر بیشتری روی کل تابع دارد.</p>
+    </div>
+
+    <div class="part-box rule">
+        <strong style="color: var(--danger);">🔴 بخش دوم (قانون/قید): $\sum_{i=1}^{N} \lambda_i \left( \sum_{j=1}^{C} u_{ij} - 1 \right)$</strong>
+        <p style="margin-top: 10px; margin-bottom: 0;">این بخش تضمین می‌کند که مجموع عضویت‌های هر داده در تمام خوشه‌ها دقیقاً ۱ باشد. عبارت داخل پرانتز این شرط را بررسی می‌کند. اگر مجموع عضویت‌ها برابر ۱ نباشد، این عبارت مخالف صفر می‌شود و با ضریب $\lambda_i$ کل تابع را جریمه می‌کند تا کامپیوتر مجبور شود آن را اصلاح کند.</p>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- بخش ۲: فرمول جادویی -->
+    <!-- ========================================== -->
+    <h2>گام دوم: فرمول جادویی محاسبه عضویت (مشتق‌گیری)</h2>
+    <p>حالا که هدف را تعریف کردیم، چطور باید درصد عضویت‌ها ($u_{ij}$) را حساب کنیم؟ در ریاضیات، برای پیدا کردن بهترین مقدار یک متغیر در یک تابع، از آن <strong>مشتق جزئی</strong> می‌گیریم و برابر صفر قرار می‌دهیم. در تصویر شما، عبارت $\frac{\partial L}{\partial u_{ij}} \to 0$ دیده می‌شود که دقیقاً همین کار را می‌کند.</p>
+    <p>وقتی این مشتق‌گیری را انجام می‌دهیم و معادله را حل می‌کنیم، به فرمول طلایی زیر می‌رسیم:</p>
+
+    <div class="formula-box">
+        $$ u_{ij} = \frac{1}{ \sum_{k=1}^{C} \left( \frac{d(x_i, v_j)}{d(x_i, v_k)} \right)^{\frac{2}{m-1}} } $$
+    </div>
+
+    <h3>تشریح تک‌تک اجزای این فرمول:</h3>
+
+    <table class="component-table">
+        <thead>
+            <tr>
+                <th>جزء فرمول</th>
+                <th>نام و توضیح کامل</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="math-cell">$u_{ij}$</td>
+                <td><strong>درجه عضویت (خروجی فرمول):</strong> همان درصدی است که می‌خواهیم محاسبه کنیم. یعنی "عضویت داده $i$ در خوشه $j$ چقدر است؟"</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$1$ (صورت کسر)</td>
+                <td><strong>عدد ثابت یک:</strong> در بالای کسر قرار دارد. وجود این عدد در صورت، باعث می‌شود که خروجی نهایی همیشه عددی مثبت باشد.</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$\sum_{k=1}^{C}$</td>
+                <td><strong>سیگمای مخرج (نرمالیزه‌کننده):</strong> یک حلقه تکرار روی تمام خوشه‌ها (از $k=1$ تا $k=C$). این جمع تضمین می‌کند که مجموع عضویت‌های یک داده در همه خوشه‌ها دقیقاً برابر ۱ شود. خط آبی «نرمالیز کردن» در تصویر شما دقیقاً به همین سیگما اشاره دارد.</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$k$</td>
+                <td><strong>اندیس خوشه درون سیگما:</strong> یک شمارنده موقت است که از ۱ تا $C$ تغییر می‌کند تا ما فاصله داده را با <strong>تمام</strong> خوشه‌ها (نه فقط خوشه $j$) مقایسه کنیم.</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$d(x_i, v_j)$ (صورت نسبت)</td>
+                <td><strong>فاصله داده تا خوشه هدف:</strong> فاصله داده $i$ تا مرکز خوشه $j$ (همان خوشه‌ای که داریم عضویتش را حساب می‌کنیم).</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$d(x_i, v_k)$ (مخرج نسبت)</td>
+                <td><strong>فاصله داده تا خوشه‌های دیگر:</strong> فاصله داده $i$ تا مرکز خوشه $k$-ام. این عدد در مخرج نسبت قرار دارد تا فاصله تا خوشه هدف را با فاصله تا سایر خوشه‌ها مقایسه کند.</td>
+            </tr>
+            <tr>
+                <td class="math-cell">$\frac{2}{m-1}$ (توان)</td>
+                <td><strong>توان نسبت فاصله‌ها:</strong> این توان از مشتق‌گیری تابع $u^m$ به دست آمده است. اگر $m=2$ باشد (حالت پیش‌فرض)، توان برابر با $\frac{2}{1} = 2$ می‌شود. این توان باعث می‌شود تأثیر فاصله‌های نزدیک، بسیار بیشتر از فاصله‌های دور باشد.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>نکته شهودی مهم:</strong> اگر داده $x_i$ به خوشه $j$ خیلی نزدیک باشد، صورت نسبت ($d_{ij}$) کوچک می‌شود. چون این نسبت در مخرج کل کسر (داخل سیگما) قرار دارد، کوچک شدن آن باعث کوچک شدن مخرج و در نتیجه <strong>بزرگتر شدن $u_{ij}$</strong> می‌شود. یعنی داده به آن خوشه تعلق بیشتری پیدا می‌کند. دقیقاً همان چیزی که منطق حکم می‌کند!</p>
+
+    <div class="graphic-container">
+        <svg width="600" height="300" viewBox="0 0 600 300">
+            <rect width="600" height="300" fill="#fcfcfc" rx="10"/>
+            <text x="300" y="30" text-anchor="middle" class="svg-title">مفهوم هندسی: هرچه نزدیک‌تر، عضویت بیشتر!</text>
+            
+            <circle cx="300" cy="150" r="8" fill="#e74c3c" />
+            <text x="315" y="145" class="svg-label" fill="#e74c3c" font-weight="bold">داده (x_i)</text>
+            
+            <circle cx="100" cy="150" r="15" fill="#3498db" opacity="0.6"/>
+            <text x="100" y="120" text-anchor="middle" class="svg-label">مرکز خوشه 1</text>
+            
+            <circle cx="500" cy="150" r="15" fill="#2ecc71" opacity="0.6"/>
+            <text x="500" y="120" text-anchor="middle" class="svg-label">مرکز خوشه 2</text>
+
+            <line x1="300" y1="150" x2="100" y2="150" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5" />
+            <text x="200" y="170" text-anchor="middle" class="svg-label" fill="#3498db">فاصله (d) = 200</text>
+
+            <line x1="300" y1="150" x2="500" y2="150" stroke="#2ecc71" stroke-width="2" stroke-dasharray="5,5" />
+            <text x="400" y="170" text-anchor="middle" class="svg-label" fill="#2ecc71">فاصله (d) = 200</text>
+
+            <rect x="50" y="220" width="500" height="60" fill="#fff" stroke="#dcdde1" rx="5"/>
+            <text x="300" y="245" text-anchor="middle" class="svg-label" font-size="13">
+                داده دقیقاً در وسط است → به هر دو خوشه ۵۰٪ تعلق دارد.
+            </text>
+            <text x="300" y="265" text-anchor="middle" class="svg-label" font-size="13" fill="#555">
+                اگر داده به سمت چپ برود، فاصله‌اش به خوشه ۱ کمتر شده و عضویتش در خوشه ۱ بیشتر می‌شود.
+            </text>
+        </svg>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- بخش ۳: مثال ملموس -->
+    <!-- ========================================== -->
+    <h2>گام سوم: باز کردن فرمول با یک مثال (پایین تصویر)</h2>
+    <p>در پایین تصویر، استاد برای ساده‌سازی، یک مثال با ۳ خوشه ($C=3$) و $m=2$ نوشته است. می‌خواهیم ببینیم عضویت داده $i$ در خوشه اول ($u_{i1}$) چطور باز می‌شود:</p>
+
+    <div class="formula-box">
+        $$ u_{i1} = \frac{1}{ \frac{d(x_i, \mu_1)}{d(x_i, \mu_1)} + \frac{d(x_i, \mu_2)}{d(x_i, \mu_1)} + \frac{d(x_i, \mu_3)}{d(x_i, \mu_1)} } $$
+    </div>
+
+    <h3>تشریح تک‌تک جمله‌های این مثال:</h3>
+    <ul>
+        <li><strong>صورت کسر (عدد ۱):</strong> همان عدد ثابت ۱ است که در همه حالت‌ها ثابت می‌ماند.</li>
+        <li><strong>جمله اول مخرج ($\frac{d(x_i, \mu_1)}{d(x_i, \mu_1)}$):</strong> این جمله زمانی ظاهر می‌شود که اندیس $k$ در سیگما برابر با $j$ (خوشه هدف) شود. چون فاصله داده تا خوشه ۱ بر خودش تقسیم می‌شود، همیشه برابر با <strong>۱</strong> است.</li>
+        <li><strong>جمله دوم مخرج ($\frac{d(x_i, \mu_2)}{d(x_i, \mu_1)}$):</strong> نسبت فاصله داده تا خوشه ۲ به فاصله‌اش تا خوشه ۱. این جمله نشان می‌دهد داده به خوشه ۲ نزدیک‌تر است یا به خوشه ۱.</li>
+        <li><strong>جمله سوم مخرج ($\frac{d(x_i, \mu_3)}{d(x_i, \mu_1)}$):</strong> نسبت فاصله داده تا خوشه ۳ به فاصله‌اش تا خوشه ۱.</li>
+        <li><strong>خطوط قرمز و آبی پایین تصویر:</strong> این خطوط صرفاً یک نمایش گرافیکی هستند تا یادآوری کنند که برای پر کردن این نسبت‌ها، باید خط‌کش را برداریم و فاصله‌های $d(x_i, \mu_1)$، $d(x_i, \mu_2)$ و $d(x_i, \mu_3)$ را اندازه بگیریم.</li>
+    </ul>
+
+    <div class="graphic-container">
+        <svg width="500" height="200" viewBox="0 0 500 200">
+            <rect width="500" height="200" fill="#fcfcfc" rx="10"/>
+            <text x="250" y="30" text-anchor="middle" class="svg-title">قانون نرمال‌سازی: جمع درصدها همیشه ۱۰۰٪ است</text>
+            
+            <rect x="50" y="70" width="400" height="40" fill="#ecf0f1" stroke="#bdc3c7" rx="5"/>
+            
+            <rect x="50" y="70" width="240" height="40" fill="#3498db" rx="5" opacity="0.8"/>
+            <text x="170" y="95" text-anchor="middle" fill="#fff" font-weight="bold">خوشه ۱: ۶۰٪</text>
+            
+            <rect x="290" y="70" width="120" height="40" fill="#e67e22" opacity="0.8"/>
+            <text x="350" y="95" text-anchor="middle" fill="#fff" font-weight="bold">خوشه ۲: ۳۰٪</text>
+
+            <rect x="410" y="70" width="40" height="40" fill="#2ecc71" opacity="0.8"/>
+            <text x="430" y="95" text-anchor="middle" fill="#fff" font-weight="bold">۱۰٪</text>
+            
+            <text x="250" y="150" text-anchor="middle" class="svg-label">
+                مخرج کسر (سیگما) تضمین می‌کند که مجموع این نوارها دقیقاً ۱ (یا ۱۰۰٪) شود.
+            </text>
+            <text x="250" y="175" text-anchor="middle" class="svg-label" fill="#7f8c8d">
+                0.6 + 0.3 + 0.1 = 1.0
+            </text>
+        </svg>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- بخش ۴: جمع‌بندی -->
+    <!-- ========================================== -->
+    <h2>گام آخر: نتیجه‌گیری آموزشی</h2>
+    <p>اگر به کل این صفحه نگاه کنید، یک داستان زیبا از ریاضیات را می‌بینید:</p>
+    <ol>
+        <li>ابتدا یک <strong>هدف</strong> تعریف کردیم (کم کردن فاصله‌ها) و یک <strong>قانون</strong> گذاشتیم (جمع درصدها = ۱) و آن‌ها را در قالب تابع لاگرانژین نوشتیم.</li>
+        <li>با استفاده از <strong>حساب دیفرانسیل</strong> (مشتق)، از دل این هدف و قانون، فرمول محاسبه عضویت را بیرون کشیدیم.</li>
+        <li>این فرمول به ما می‌گوید: <strong>"هر داده به همان اندازه به یک خوشه تعلق دارد که به آن نزدیک است، نسبت به سایر خوشه‌ها."</strong></li>
+    </ol>
+
+    <!-- ========================================== -->
+    <!-- بخش تعاملی: شبیه‌ساز -->
+    <!-- ========================================== -->
+    <h2 style="background: linear-gradient(135deg, #1e1e2f, #2a2a40); border: 1px solid #00d2ff;">🎮 آزمایشگاه تعاملی: فرمول‌ها را به صورت زنده ببینید!</h2>
+    <div class="simulator-box">
+        <h3>روی بوم زیر کلیک کنید تا داده جدید اضافه شود!</h3>
+        <p style="color: #ccc; font-size: 14px;">الگوریتم به صورت زنده مراکز خوشه‌ها را جابه‌جا می‌کند و درصد عضویت هر داده را با همان فرمولی که در بالا خواندید، محاسبه می‌کند.</p>
+
+        <div class="canvas-container">
+            <canvas id="canvas" width="800" height="400"></canvas>
+        </div>
+
+        <div class="sim-controls">
+            <button id="btnReset">پاک کردن همه</button>
+            <button id="btnRandom">افزودن ۱۰ داده تصادفی</button>
+            <div class="sim-legend">
+                <span class="sc1">● خوشه ۱</span> &nbsp;|&nbsp;
+                <span class="sc2">● خوشه ۲</span> &nbsp;|&nbsp;
+                <span class="sc3">● خوشه ۳</span>
+                &nbsp;|&nbsp; (اندازه و شفافیت داده‌ها نشان‌دهنده درصد عضویت آن‌هاست)
+            </div>
+        </div>
+
+        <div class="sim-table-container">
+            <table id="membershipTable">
+                <thead>
+                    <tr>
+                        <th>داده</th>
+                        <th>مختصات (X, Y)</th>
+                        <th class="sc1">عضویت در خوشه ۱</th>
+                        <th class="sc2">عضویت در خوشه ۲</th>
+                        <th class="sc3">عضویت در خوشه ۳</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- ========================================== -->
+<!-- اسکریپت شبیه‌ساز -->
+<!-- ========================================== -->
+<script>
+    window.addEventListener('load', () => {
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const tableBody = document.querySelector('#membershipTable tbody');
+
+        const C = 3;
+        const m = 2;
+        let dataPoints = [];
+        let centroids = [
+            { x: 150, y: 100 },
+            { x: 650, y: 100 },
+            { x: 400, y: 300 }
+        ];
+        const colors = ['#ff4d4d', '#4dff4d', '#4d4dff'];
+
+        function distance(p1, p2) {
+            return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+        }
+
+        function computeMembership() {
+            let U = [];
+            for (let i = 0; i < dataPoints.length; i++) {
+                let u_i = [];
+                let distances = centroids.map(c => Math.max(distance(dataPoints[i], c), 0.5));
+                
+                for (let j = 0; j < C; j++) {
+                    let sum = 0;
+                    for (let k = 0; k < C; k++) {
+                        sum += Math.pow(distances[j] / distances[k], 2 / (m - 1));
+                    }
+                    u_i.push(1 / sum);
+                }
+                U.push(u_i);
+            }
+            return U;
+        }
+
+        function updateCentroids(U) {
+            for (let j = 0; j < C; j++) {
+                let numX = 0, numY = 0, den = 0;
+                for (let i = 0; i < dataPoints.length; i++) {
+                    let weight = Math.pow(U[i][j], m);
+                    numX += weight * dataPoints[i].x;
+                    numY += weight * dataPoints[i].y;
+                    den += weight;
+                }
+                if (den > 0.001) {
+                    centroids[j].x = numX / den;
+                    centroids[j].y = numY / den;
+                }
+            }
+            
+            for (let a = 0; a < C; a++) {
+                for (let b = a + 1; b < C; b++) {
+                    if (distance(centroids[a], centroids[b]) < 30) {
+                        centroids[b].x = Math.max(30, Math.min(canvas.width - 30, centroids[b].x + (Math.random() - 0.5) * 100));
+                        centroids[b].y = Math.max(30, Math.min(canvas.height - 30, centroids[b].y + (Math.random() - 0.5) * 100));
+                    }
+                }
+            }
+        }
+
+        function draw(U) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < dataPoints.length; i++) {
+                let radius = 5;
+                let color = '#888';
+                let alpha = 1;
+
+                if (U && U[i]) {
+                    let maxU = -1, maxIdx = 0;
+                    for (let j = 0; j < C; j++) {
+                        if (U[i][j] > maxU) { maxU = U[i][j]; maxIdx = j; }
+                    }
+                    radius = 4 + maxU * 8;
+                    color = colors[maxIdx];
+                    alpha = 0.4 + maxU * 0.6;
+                }
+
+                ctx.beginPath();
+                ctx.arc(dataPoints[i].x, dataPoints[i].y, radius, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.globalAlpha = alpha;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+
+            for (let j = 0; j < C; j++) {
+                ctx.beginPath();
+                ctx.arc(centroids[j].x, centroids[j].y, 15, 0, Math.PI * 2);
+                ctx.fillStyle = colors[j];
+                ctx.fill();
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 16px Vazirmatn, Tahoma';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(`C${j+1}`, centroids[j].x, centroids[j].y);
+            }
+        }
+
+        function updateTable(U) {
+            tableBody.innerHTML = '';
+            if (!U) return;
+            
+            for (let i = 0; i < dataPoints.length; i++) {
+                let row = `<tr>
+                    <td>${i + 1}</td>
+                    <td>(${Math.round(dataPoints[i].x)}, ${Math.round(dataPoints[i].y)})</td>
+                    <td class="sc1">${(U[i][0] * 100).toFixed(1)}%</td>
+                    <td class="sc2">${(U[i][1] * 100).toFixed(1)}%</td>
+                    <td class="sc3">${(U[i][2] * 100).toFixed(1)}%</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            }
+        }
+
+        function runAlgorithm() {
+            if (dataPoints.length === 0) {
+                draw(null);
+                tableBody.innerHTML = '';
+                return;
+            }
+
+            let U = null;
+            for (let iter = 0; iter < 10; iter++) {
+                U = computeMembership();
+                updateCentroids(U);
+            }
+            
+            let finalU = computeMembership();
+            draw(finalU);
+            updateTable(finalU);
+        }
+
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
+            
+            dataPoints.push({ x, y });
+            runAlgorithm();
+        });
+
+        document.getElementById('btnReset').addEventListener('click', () => {
+            dataPoints = [];
+            centroids = [
+                { x: 150, y: 100 },
+                { x: 650, y: 100 },
+                { x: 400, y: 300 }
+            ];
+            runAlgorithm();
+        });
+
+        document.getElementById('btnRandom').addEventListener('click', () => {
+            for (let i = 0; i < 10; i++) {
+                dataPoints.push({
+                    x: Math.random() * (canvas.width - 40) + 20,
+                    y: Math.random() * (canvas.height - 40) + 20
+                });
+            }
+            runAlgorithm();
+        });
+
+        for (let i = 0; i < 10; i++) {
+            dataPoints.push({
+                x: Math.random() * (canvas.width - 40) + 20,
+                y: Math.random() * (canvas.height - 40) + 20
+            });
+        }
+        runAlgorithm();
+    });
+</script>
+
+</body>
+</html>
