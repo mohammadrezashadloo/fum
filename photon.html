@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>رابطه انرژی، بسامد و طول موج</title>
+
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/estedad@v1.1.2/Estedad-font-face.css" rel="stylesheet" />
+
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+    svg: { fontCache: 'global', scale: 1.05 },
+    options: { renderActions: { addMenu: [] } }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+  :root{
+    --bg-1:#f8fafc;
+    --bg-2:#eef2f9;
+    --panel:#ffffff;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --accent:#2563eb;
+    --accent-2:#059669;
+    --accent-3:#d97706;
+    --shadow:0 10px 30px -12px rgba(15,23,42,.15);
+    --shadow-soft:0 4px 14px -8px rgba(15,23,42,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    background:radial-gradient(1200px 600px at 80% -10%, #dbeafe 0%, transparent 60%),
+               radial-gradient(900px 500px at -10% 100%, #d1fae5 0%, transparent 55%),
+               linear-gradient(180deg,var(--bg-1),var(--bg-2));
+    color:var(--ink);
+    font-family:'Estedad','Vazirmatn',system-ui,sans-serif;
+    line-height:1.9;
+    min-height:100vh;
+    padding:28px 16px;
+  }
+  .container{max-width:1180px;margin:0 auto}
+
+  header.hero{
+    background:linear-gradient(135deg, rgba(37,99,235,.08), rgba(5,150,105,.06));
+    border:1px solid var(--line);
+    border-radius:26px;
+    padding:34px 32px;
+    margin-bottom:26px;
+    box-shadow:var(--shadow);
+  }
+  h1{
+    font-family:'Vazirmatn',sans-serif;
+    font-weight:800;
+    font-size:2.1rem;
+    letter-spacing:-.02em;
+    background:linear-gradient(90deg,#1e3a8a,#2563eb 55%,#059669);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  h2{
+    font-family:'Vazirmatn',sans-serif;
+    font-weight:700;
+    font-size:1.5rem;
+    margin:38px 0 14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#0f172a;
+  }
+  h2 .dot{
+    width:12px;height:12px;border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    box-shadow:0 0 12px rgba(37,99,235,.5);
+  }
+  h3{font-weight:600;font-size:1.15rem;margin:22px 0 10px;color:#1e293b}
+  h4{font-weight:600;font-size:1rem;margin:18px 0 8px;color:#334155}
+  p{color:#334155;margin:10px 0}
+  strong{color:#0f172a}
+  .muted{color:var(--muted)}
+  ul{color:#334155;padding-inline-start:1.4rem;margin:8px 0}
+  li{margin:6px 0}
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:22px;
+    margin:16px 0;
+    box-shadow:var(--shadow-soft);
+  }
+
+  .formula{
+    background:#f1f5ff;
+    border:1px solid #c7d2fe;
+    border-radius:16px;
+    padding:16px 20px;
+    margin:14px 0;
+    overflow-x:auto;
+    direction:ltr;
+    text-align:center;
+    box-shadow:inset 0 0 0 1px rgba(37,99,235,.05), 0 6px 18px -10px rgba(37,99,235,.25);
+  }
+  .formula mjx-container{font-size:1.18rem !important}
+
+  .note{
+    background:linear-gradient(180deg, rgba(5,150,105,.08), rgba(5,150,105,.03));
+    border-right:6px solid var(--accent-2);
+    border-radius:16px;
+    padding:16px 20px;
+    margin:18px 0;
+    color:#064e3b;
+  }
+  .note.warn{
+    background:linear-gradient(180deg, rgba(217,119,6,.10), rgba(217,119,6,.04));
+    border-right-color:var(--accent-3);
+    color:#78350f;
+  }
+  .note.info{
+    background:linear-gradient(180deg, rgba(37,99,235,.09), rgba(37,99,235,.03));
+    border-right-color:var(--accent);
+    color:#1e3a8a;
+  }
+
+  .pill{
+    display:inline-block;
+    padding:3px 12px;
+    border-radius:999px;
+    font-size:.8rem;
+    font-weight:700;
+    background:linear-gradient(135deg, rgba(37,99,235,.12), rgba(5,150,105,.12));
+    border:1px solid rgba(37,99,235,.3);
+    color:#1e3a8a;
+    margin-inline-end:6px;
+  }
+
+  .interactive{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:22px;
+    margin:20px 0;
+    box-shadow:var(--shadow-soft);
+  }
+  .slider-row{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin:12px 0}
+  .slider-row label{min-width:180px;color:#1e293b;font-weight:600}
+  input[type=range]{
+    flex:1;
+    appearance:none;
+    height:8px;
+    border-radius:99px;
+    background:linear-gradient(90deg,#7c3aed,#3b82f6,#22d3ee,#22c55e,#eab308,#f97316,#ef4444,#7f1d1d);
+    outline:none;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    appearance:none;
+    width:22px;height:22px;
+    border-radius:50%;
+    background:#fff;
+    border:3px solid #1e3a8a;
+    cursor:pointer;
+    box-shadow:0 2px 8px rgba(15,23,42,.25);
+  }
+  input[type=range]::-moz-range-thumb{
+    width:22px;height:22px;
+    border-radius:50%;
+    background:#fff;
+    border:3px solid #1e3a8a;
+    cursor:pointer;
+  }
+
+  .readout{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:12px;
+    margin-top:16px;
+  }
+  .readout .box{
+    background:#f8fafc;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+  }
+  .readout .box .k{font-size:.82rem;color:var(--muted);display:block;margin-bottom:4px}
+  .readout .box .v{font-size:1.12rem;font-weight:800;color:#1e293b;font-family:monospace}
+
+  .viz{background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:14px;margin:14px 0;overflow:hidden}
+  .viz svg{display:block;width:100%;height:auto}
+
+  .table-wrap{overflow-x:auto;border-radius:16px;border:1px solid var(--line);margin:16px 0;background:#fff}
+  table{width:100%;border-collapse:collapse;font-size:.93rem}
+  th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+  thead th{background:linear-gradient(180deg,#dbeafe,#bfdbfe);color:#1e3a8a;font-weight:700;white-space:nowrap}
+  tbody tr:hover td{background:#f1f5f9}
+  tbody tr:last-child td{border-bottom:none}
+
+  .example-box{
+    background:linear-gradient(180deg,#f0f9ff,#e0f2fe);
+    border:1px solid #bae6fd;
+    border-radius:14px;
+    padding:14px 18px;
+    margin:12px 0;
+    font-size:.93rem;
+    color:#0c4a6e;
+    line-height:1.9;
+  }
+  .example-box strong{color:#075985}
+  .example-box .step{
+    display:block;
+    margin:4px 0;
+    font-family:monospace;
+    direction:ltr;
+    text-align:left;
+    background:#ffffff;
+    border-radius:8px;
+    padding:6px 10px;
+    color:#0f172a;
+  }
+
+  .code-block{
+    background:#f8fafc;
+    border:1px solid #cbd5e1;
+    border-radius:16px;
+    overflow:hidden;
+    margin:16px 0;
+    box-shadow:var(--shadow-soft);
+  }
+  .code-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:10px 16px;
+    background:linear-gradient(180deg,#e2e8f0,#cbd5e1);
+    border-bottom:1px solid #cbd5e1;
+    font-family:monospace;
+    font-size:.85rem;
+    color:#1e293b;
+  }
+  .code-header .lang{color:#047857;font-weight:700}
+  .code-header .actions{display:flex;gap:8px}
+  .btn{
+    cursor:pointer;
+    border:none;
+    border-radius:10px;
+    padding:7px 14px;
+    font-weight:700;
+    font-family:inherit;
+    font-size:.85rem;
+    transition:transform .12s ease, filter .2s;
+  }
+  .btn:hover{transform:translateY(-1px);filter:brightness(1.05)}
+  .btn.run{background:linear-gradient(135deg,#059669,#10b981);color:#ffffff}
+  .btn.copy{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#ffffff}
+  pre{
+    padding:16px;
+    overflow-x:auto;
+    direction:ltr;
+    text-align:left;
+    font-family:'JetBrains Mono','Fira Code',monospace;
+    font-size:.9rem;
+    line-height:1.7;
+    color:#0f172a;
+    margin:0;
+    background:#f8fafc;
+  }
+  .out{
+    border-top:1px dashed #cbd5e1;
+    padding:12px 16px;
+    font-family:monospace;
+    font-size:.88rem;
+    color:#064e3b;
+    background:#ecfdf5;
+    white-space:pre-wrap;
+    direction:ltr;
+    text-align:left;
+    min-height:2.2rem;
+  }
+  .out .err{color:#b91c1c}
+  .loading{color:#b45309}
+
+  footer{
+    margin-top:50px;
+    text-align:center;
+    color:var(--muted);
+    font-size:.9rem;
+    border-top:1px solid var(--line);
+    padding-top:20px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="hero">
+    <h1>رابطهٔ انرژی، بسامد و طول موج</h1>
+  </header>
+
+  <!-- ========== انرژی فوتون و رابطهٔ پلانک ========== -->
+  <h2><span class="dot"></span>انرژی فوتون و رابطهٔ پلانک</h2>
+  <div class="card">
+    <p>انرژی هر فوتون با <strong>بسامد</strong> موج متناسب است. این رابطه که توسط <strong>ماکس پلانک</strong> ارائه شد:</p>
+    <div class="formula">
+      $$ E = h\nu \tag{۵} $$
+    </div>
+    <p>
+      که در آن $E$ انرژی فوتون (ژول)، $h \approx 6.62607015 \times 10^{-34}\,\mathrm{J\cdot s}$ ثابت پلانک و $\nu$ بسامد موج (هرتز) است.
+    </p>
+
+    <h3>استخراج کامل رابطه</h3>
+    <p>از رابطهٔ انتشار موج الکترومغناطیسی در خلأ:</p>
+    <div class="formula">
+      $$ c = \lambda\nu \tag{۶} $$
+    </div>
+    <p>با حل این رابطه برای بسامد و جایگذاری در $E = h\nu$:</p>
+    <div class="formula">
+      $$ \nu = \frac{c}{\lambda} \quad\Longrightarrow\quad E = h \cdot \frac{c}{\lambda} = \frac{hc}{\lambda} \tag{۷} $$
+    </div>
+    <p>مقدار عددی $hc$ برابر است با:</p>
+    <div class="formula">
+      $$ hc = (6.62607015\times 10^{-34})(2.99792458\times 10^{8}) \approx 1.986\times 10^{-25}\,\mathrm{J\cdot m} $$
+    </div>
+
+    <div class="note info">
+      <strong>📌 نتیجهٔ کلیدی:</strong> انرژی فوتون با بسامد <span style="color:#059669;font-weight:700">رابطهٔ مستقیم</span> و با طول موج <span style="color:#dc2626;font-weight:700">رابطهٔ معکوس</span> دارد:
+      $$ \nu \uparrow \;\Longrightarrow\; E \uparrow \qquad , \qquad \lambda \uparrow \;\Longrightarrow\; E \downarrow \tag{۸} $$
+    </div>
+  </div>
+
+  <!-- ========== آزمایشگاه تعاملی ========== -->
+  <h2><span class="dot"></span>آزمایشگاه تعاملی: انرژی ↔ طول موج (تمام باندهای طیف)</h2>
+  <div class="interactive">
+    <p class="muted">طول موج را با اسلایدر تغییر دهید (از پرتو گاما تا امواج رادیویی) و مقادیر لحظه‌ای انرژی، بسامد و باند طیفی را ببینید.</p>
+
+    <div class="slider-row">
+      <label for="lambdaRange">λ (نانومتر):</label>
+      <input id="lambdaRange" type="range" min="0" max="1000" value="500" step="1" />
+      <span id="lambdaVal" class="pill" style="min-width:110px;text-align:center">550 nm</span>
+    </div>
+
+    <div class="readout">
+      <div class="box"><span class="k">طول موج (λ)</span><span class="v" id="outLambda">—</span></div>
+      <div class="box"><span class="k">بسامد (ν)</span><span class="v" id="outNu">—</span></div>
+      <div class="box"><span class="k">انرژی فوتون (E)</span><span class="v" id="outEeV">—</span></div>
+      <div class="box"><span class="k">انرژی فوتون (ژول)</span><span class="v" id="outEJ">—</span></div>
+      <div class="box"><span class="k">باند طیفی</span><span class="v" id="outBand" style="font-size:1rem;color:#047857">—</span></div>
+    </div>
+
+    <div class="viz" style="margin-top:18px">
+      <svg viewBox="0 0 900 150" role="img" aria-label="نمودار طیف الکترومغناطیسی">
+        <defs>
+          <linearGradient id="gamma" x1="0" x2="1"><stop offset="0%" stop-color="#4c1d95"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient>
+          <linearGradient id="xray"  x1="0" x2="1"><stop offset="0%" stop-color="#6d28d9"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
+          <linearGradient id="uv"    x1="0" x2="1"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#c4b5fd"/></linearGradient>
+          <linearGradient id="vis"   x1="0" x2="1">
+            <stop offset="0%"  stop-color="#7c3aed"/>
+            <stop offset="20%" stop-color="#3b82f6"/>
+            <stop offset="40%" stop-color="#22d3ee"/>
+            <stop offset="55%" stop-color="#22c55e"/>
+            <stop offset="70%" stop-color="#eab308"/>
+            <stop offset="85%" stop-color="#f97316"/>
+            <stop offset="100%" stop-color="#ef4444"/>
+          </linearGradient>
+          <linearGradient id="ir"    x1="0" x2="1"><stop offset="0%" stop-color="#b91c1c"/><stop offset="100%" stop-color="#7f1d1d"/></linearGradient>
+          <linearGradient id="mw"    x1="0" x2="1"><stop offset="0%" stop-color="#78350f"/><stop offset="100%" stop-color="#44403c"/></linearGradient>
+          <linearGradient id="radio" x1="0" x2="1"><stop offset="0%" stop-color="#475569"/><stop offset="100%" stop-color="#1e293b"/></linearGradient>
+        </defs>
+
+        <rect x="20"  y="34" width="80"  height="60" rx="8" fill="url(#gamma)"/>
+        <rect x="100" y="34" width="80"  height="60" rx="8" fill="url(#xray)"/>
+        <rect x="180" y="34" width="80"  height="60" rx="8" fill="url(#uv)"/>
+        <rect x="260" y="34" width="240" height="60" rx="8" fill="url(#vis)"/>
+        <rect x="500" y="34" width="140" height="60" rx="8" fill="url(#ir)"/>
+        <rect x="640" y="34" width="120" height="60" rx="8" fill="url(#mw)"/>
+        <rect x="760" y="34" width="120" height="60" rx="8" fill="url(#radio)"/>
+
+        <text x="60"  y="24" fill="#6d28d9" font-size="12" font-family="Vazirmatn" text-anchor="middle">گاما</text>
+        <text x="140" y="24" fill="#7c3aed" font-size="12" font-family="Vazirmatn" text-anchor="middle">ایکس</text>
+        <text x="220" y="24" fill="#8b5cf6" font-size="12" font-family="Vazirmatn" text-anchor="middle">فرابنفش</text>
+        <text x="380" y="24" fill="#2563eb" font-size="12" font-family="Vazirmatn" text-anchor="middle">مرئی</text>
+        <text x="570" y="24" fill="#b91c1c" font-size="12" font-family="Vazirmatn" text-anchor="middle">فروسرخ</text>
+        <text x="700" y="24" fill="#92400e" font-size="12" font-family="Vazirmatn" text-anchor="middle">ریزموج</text>
+        <text x="820" y="24" fill="#334155" font-size="12" font-family="Vazirmatn" text-anchor="middle">رادیو</text>
+
+        <line id="marker" x1="380" y1="28" x2="380" y2="106" stroke="#0f172a" stroke-width="3" stroke-dasharray="5,4" opacity=".85"/>
+        <circle id="markerDot" cx="380" cy="28" r="7" fill="#ffffff" stroke="#1e3a8a" stroke-width="3"/>
+
+        <text x="20"  y="126" fill="#64748b" font-size="11" text-anchor="middle">1 pm</text>
+        <text x="180" y="126" fill="#64748b" font-size="11" text-anchor="middle">1 nm</text>
+        <text x="380" y="126" fill="#64748b" font-size="11" text-anchor="middle">1 μm</text>
+        <text x="580" y="126" fill="#64748b" font-size="11" text-anchor="middle">1 mm</text>
+        <text x="760" y="126" fill="#64748b" font-size="11" text-anchor="middle">1 m</text>
+        <text x="880" y="126" fill="#64748b" font-size="11" text-anchor="middle">1 km</text>
+        <text x="450" y="146" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="Vazirmatn">مقیاس لگاریتمی طول موج</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ========== مرز باندها ========== -->
+  <h2><span class="dot"></span>چرا مرز باندها سایه‌دار است؟</h2>
+  <div class="card">
+    <p>
+      نام‌هایی مانند «فروسرخ» یا «ریزموج» دسته‌بندی‌های کاربردی و قراردادی‌اند؛ خود طیف الکترومغناطیسی <strong>پیوسته</strong> است.
+      به همین دلیل، یک مرز عددی کاملاً یکتا میان همهٔ باندها وجود ندارد و بازه‌های معرفی‌شده در منابع مختلف ممکن است اندکی هم‌پوشانی داشته باشند.
+      سایه‌گذاری شکل همین گذار نرم را نشان می‌دهد و نباید آن را به معنای تغییر ناگهانی ماهیت فیزیکی موج در یک طول موج مشخص تفسیر کرد.
+    </p>
+    <div class="note info">
+      <strong>📌 نکته:</strong>
+      مرزهای ۳۸۰ nm (شروع مرئی) یا ۷۸۰ nm (پایان مرئی) در کتاب‌های مختلف ممکن است چند نانومتر اختلاف داشته باشند. دلیلش این است که حساسیت چشم انسان هم در لبه‌ها به‌تدریج افت می‌کند، نه ناگهانی. همین موضوع برای مرز فرابنفش/ایکس، فروسرخ/ریزموج و ریزموج/رادیو هم صادق است.
+    </div>
+  </div>
+
+  <!-- ========== واحد الکترون ولت ========== -->
+  <h2><span class="dot"></span>واحد الکترون ولت (eV) — توضیح جامع</h2>
+  <div class="card">
+    <h3>۱. الکترون ولت چیست؟</h3>
+    <p>
+      <strong>الکترون ولت</strong> (با نماد $\mathrm{eV}$) یکی از رایج‌ترین واحدهای انرژی در فیزیک اتمی، فیزیک هسته‌ای، فیزیک حالت جامد و تصویربرداری پزشکی است.
+      تعریف دقیق آن بر اساس مفهوم <strong>اختلاف پتانسیل الکتریکی</strong> است:
+    </p>
+    <div class="note info">
+      <strong>تعریف:</strong>
+      یک الکترون ولت، مقدار انرژی‌ای است که یک <strong>الکترون</strong> (با بار $e$) هنگام عبور از اختلاف پتانسیل <strong>یک ولت</strong> به دست می‌آورد.
+    </div>
+    <p>کار انجام‌شده روی یک بار الکتریکی $q$ هنگام عبور از اختلاف پتانسیل $V$ برابر است با $W = qV$:</p>
+    <div class="formula">
+      $$ 1\,\mathrm{eV} = e \cdot 1\,\mathrm{V} = (1.602176634\times 10^{-19}\,\mathrm{C}) \cdot (1\,\mathrm{V}) = 1.602176634\times 10^{-19}\,\mathrm{J} \tag{۹} $$
+    </div>
+
+    <h3>۲. چرا از الکترون ولت استفاده می‌کنیم؟</h3>
+    <p>در فیزیک اتمی و مولکولی، انرژی‌ها معمولاً در محدودهٔ چند الکترون‌ولت هستند:</p>
+    <ul>
+      <li><strong>انرژی یونیزاسیون هیدروژن:</strong> $13.6\,\mathrm{eV}$.</li>
+      <li><strong>شکاف باند سیلیکون:</strong> $\approx 1.1\,\mathrm{eV}$.</li>
+      <li><strong>انرژی فوتون نور سبز:</strong> $\approx 2.25\,\mathrm{eV}$.</li>
+      <li><strong>انرژی فوتون پرتو ایکس تشخیصی:</strong> $20\,\mathrm{keV}$ تا $150\,\mathrm{keV}$.</li>
+      <li><strong>انرژی فوتون پرتو گامای پزشکی:</strong> $100\,\mathrm{keV}$ تا $1\,\mathrm{MeV}$.</li>
+    </ul>
+    <p>
+      اگر همان انرژی‌ها را بر حسب ژول بنویسیم، با اعدادی مانند $10^{-19}$ روبه‌رو می‌شویم. به همین دلیل، در این حوزه‌ها از الکترون ولت استفاده می‌کنیم.
+    </p>
+
+    <h3>۳. جدول تبدیل eV به ژول</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>مقدار انرژی</th><th>بر حسب eV</th><th>بر حسب ژول</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>انرژی فوتون فروسرخ دور (۱۰ μm)</td><td>$0.124\,\mathrm{eV}$</td><td>$\approx 2.0\times 10^{-20}\,\mathrm{J}$</td></tr>
+          <tr><td>انرژی فوتون نور سبز (۵۵۰ nm)</td><td>$2.25\,\mathrm{eV}$</td><td>$\approx 3.6\times 10^{-19}\,\mathrm{J}$</td></tr>
+          <tr><td>انرژی یونیزاسیون هیدروژن</td><td>$13.6\,\mathrm{eV}$</td><td>$\approx 2.18\times 10^{-18}\,\mathrm{J}$</td></tr>
+          <tr><td>انرژی فوتون فرابنفش (۱۰۰ nm)</td><td>$12.4\,\mathrm{eV}$</td><td>$\approx 2.0\times 10^{-18}\,\mathrm{J}$</td></tr>
+          <tr><td>انرژی فوتون پرتو ایکس (۰.۱ nm)</td><td>$12.4\,\mathrm{keV}$</td><td>$\approx 2.0\times 10^{-15}\,\mathrm{J}$</td></tr>
+          <tr><td>انرژی فوتون گاما (۰.۰۰۱ nm)</td><td>$1.24\,\mathrm{MeV}$</td><td>$\approx 2.0\times 10^{-13}\,\mathrm{J}$</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>۴. استخراج ضریب ۱۲۴۰ گام‌به‌گام</h3>
+    <p><strong>گام ۱:</strong> از رابطهٔ (۷) شروع می‌کنیم:</p>
+    <div class="formula">
+      $$ E(\mathrm{J}) = \frac{hc}{\lambda(\mathrm{m})} $$
+    </div>
+    <p><strong>گام ۲:</strong> تبدیل طول موج از نانومتر به متر:</p>
+    <div class="formula">
+      $$ E(\mathrm{J}) = \frac{hc \times 10^{9}}{\lambda(\mathrm{nm})} $$
+    </div>
+    <p><strong>گام ۳:</strong> تبدیل ژول به الکترون ولت:</p>
+    <div class="formula">
+      $$ E(\mathrm{eV}) = \frac{hc \times 10^{9}}{1.602\times 10^{-19}} \cdot \frac{1}{\lambda(\mathrm{nm})} $$
+    </div>
+    <p><strong>گام ۴:</strong> محاسبهٔ ضریب عددی:</p>
+    <div class="formula">
+      $$ \frac{(1.986\times 10^{-25}) \times 10^{9}}{1.602\times 10^{-19}} \approx 1240\,\mathrm{eV\cdot nm} $$
+    </div>
+    <p><strong>گام ۵:</strong> نتیجهٔ نهایی:</p>
+    <div class="formula">
+      $$ \boxed{\;E(\mathrm{eV}) \approx \frac{1240}{\lambda(\mathrm{nm})}\;} \tag{۱۰} $$
+    </div>
+
+    <p><strong>مثال:</strong> نور سبز با $\lambda = 550\,\mathrm{nm}$:</p>
+    <div class="formula">
+      $$ E \approx \frac{1240}{550} \approx 2.25\,\mathrm{eV} \tag{۱۱} $$
+    </div>
+
+    <h3>۵. ارتباط eV با مفاهیم فیزیکی مهم</h3>
+    <ul>
+      <li><strong>انرژی یونیزاسیون اتم‌ها:</strong> برای جدا کردن الکترون از اتم، باید حداقل انرژی یونیزاسیون را بدهیم.</li>
+      <li><strong>شکاف باند نیمه‌رساناها:</strong> در سیلیکون، شکاف باند $1.1\,\mathrm{eV}$ است.</li>
+      <li><strong>آستانهٔ تشخیص در آشکارسازها:</strong> هر آشکارساز یک آستانهٔ انرژی دارد.</li>
+      <li><strong>آستانهٔ دز در پرتودرمانی:</strong> انرژی فوتون‌ها معمولاً بین $6\,\mathrm{MeV}$ تا $20\,\mathrm{MeV}$ است.</li>
+    </ul>
+
+    <div class="note info">
+      <strong>📌 نکات کلیدی:</strong>
+      <ul style="margin-top:8px">
+        <li>الکترون ولت واحد انرژی است، نه واحد ولتاژ یا بار.</li>
+        <li>یک الکترون ولت برابر با $1.602\times 10^{-19}$ ژول است.</li>
+        <li>تبدیل سریع طول موج (nm) به انرژی (eV) با $E \approx 1240/\lambda$ انجام می‌شود.</li>
+        <li>مقدار دقیق‌تر ضریب $1239.84$ است.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ========== ارتباط طیف الکترومغناطیسی با تشکیل تصویر ========== -->
+  <h2><span class="dot"></span>ارتباط طیف الکترومغناطیسی با تشکیل تصویر</h2>
+  <div class="card">
+    <p>
+      تصویر دیجیتال الزاماً با نور مرئی تشکیل نمی‌شود. یک سامانهٔ تصویربرداری، انرژی تابشیِ گسیل‌شده، عبورکرده، بازتابیده یا پراکنده‌شده از جسم را در یک باند طیفی اندازه می‌گیرد و آن را به آرایه‌ای از مقادیر عددی تبدیل می‌کند. مدل سادهٔ اندازه‌گیری در پیکسل $(m, n)$:
+    </p>
+    <div class="formula">
+      $$ g[m,n] = \int_{\lambda_1}^{\lambda_2} s(\lambda)\, L(m,n,\lambda)\, d\lambda + \eta[m,n] \tag{۱۲} $$
+    </div>
+
+    <h3>معنای هر جزء فرمول</h3>
+    <ul>
+      <li><strong>$g[m,n]$</strong> : مقدار عددی پیکسل در سطر $m$ و ستون $n$ از آرایهٔ تصویر.</li>
+      <li><strong>$L(m,n,\lambda)$</strong> : <em>تابش طیفی</em> رسیده از صحنه در آن پیکسل (گسیل‌شده، بازتابیده یا عبورکرده).</li>
+      <li><strong>$s(\lambda)$</strong> : <em>پاسخ طیفی حسگر</em>. هر حسگر فقط در یک بازهٔ مشخص از طول موج‌ها حساس است.</li>
+      <li><strong>$[\lambda_1, \lambda_2]$</strong> : <em>باند حساسیت حسگر</em>. برای چشم انسان حدود ۳۸۰ تا ۷۸۰ نانومتر، برای آشکارساز فروسرخ حدود ۸ تا ۱۴ میکرومتر.</li>
+      <li><strong>$\eta[m,n]$</strong> : <em>نویز اندازه‌گیری</em>. نویز حرارتی، نویز تاریکی، نویز خواندن و… .</li>
+    </ul>
+
+    <h3>نقش سه عامل در تشکیل تصویر</h3>
+    <ul>
+      <li><strong>باند طیفی منبع تابش:</strong> انتخاب باند، انتخاب نوع تصویر است.</li>
+      <li><strong>برهم‌کنش انرژی با ماده:</strong> هر ماده در هر طول موج امضای طیفی مخصوص خود را دارد.</li>
+      <li><strong>پاسخ طیفی حسگر:</strong> اگر طول موج خارج از باند حساسیت باشد، مقدار پیکسل تقریباً صفر است.</li>
+    </ul>
+
+    <h3>کاربرد باندها در تصویربرداری</h3>
+    <ul>
+      <li><strong>پرتو گاما:</strong> تصویربرداری پزشکی هسته‌ای (PET، SPECT) و مشاهدات نجومی پرانرژی؛</li>
+      <li><strong>پرتو ایکس:</strong> رادیوگرافی، سی‌تی (CT) و بازرسی صنعتی؛</li>
+      <li><strong>فرابنفش:</strong> آشکارسازی مواد، بررسی سطح و تصویربرداری نجومی؛</li>
+      <li><strong>نور مرئی:</strong> دوربین‌های معمول، بینایی ماشین و تصویربرداری رنگی؛</li>
+      <li><strong>فروسرخ:</strong> تصویربرداری حرارتی، دید در شب و سنجش از دور؛</li>
+      <li><strong>ریزموج:</strong> رادار و تصویربرداری در شرایط ابر، مه یا تاریکی؛</li>
+      <li><strong>امواج رادیویی:</strong> تصویربرداری تشدید مغناطیسی (MRI) و رادیواخترشناسی.</li>
+    </ul>
+
+    <h3>کد پایتون — پیاده‌سازی دقیق معادلهٔ (۱۲)</h3>
+    <p class="muted">
+      این کد <strong>دقیقاً همان فرمول (۱۲)</strong> را پیاده می‌کند. همهٔ نمادهای فرمول صریحاً در کد حضور دارند. با کلیک روی «اجرا» در مرورگر اجرا می‌شود.
+    </p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span><span class="lang">python</span> • image_formation_exact.py</span>
+        <div class="actions">
+          <button class="btn copy" onclick="copyCode(this)">کپی</button>
+          <button class="btn run" onclick="runPython(this, 'out-img-exact')">اجرا</button>
+        </div>
+      </div>
+<pre># Exact implementation of:
+#   g[m,n] = ∫_{λ1}^{λ2} s(λ) · L(m,n,λ) dλ + η[m,n]
+#
+# Every symbol appears explicitly:
+#   λ1, λ2   : sensor band limits (nm)
+#   s(λ)     : sensor spectral response
+#   L(m,n,λ) : spectral radiance at pixel (m,n)
+#   η[m,n]   : measurement noise
+#   g[m,n]   : resulting pixel value
+
+import numpy as np
+from scipy.integrate import trapezoid
+
+
+# ---------- L(m,n,λ) : scene spectral radiance ----------
+def planck_lambda(lam_nm, T):
+    """Planck blackbody (relative units)."""
+    lam_m = lam_nm * 1e-9
+    h, c, k = 6.62607015e-34, 2.99792458e8, 1.380649e-23
+    x = h * c / (lam_m * k * T)
+    x = np.clip(x, 1e-3, 700)
+    return (1.0 / lam_m**5) / (np.exp(x) - 1.0)
+
+
+def make_scene_L(H, W, lam_nm):
+    L = np.zeros((H, W, len(lam_nm)))
+    sun      = planck_lambda(lam_nm, 5800);  sun      /= sun.max()
+    tungsten = planck_lambda(lam_nm, 2800);  tungsten /= tungsten.max()
+    led      = np.exp(-0.5 * ((lam_nm - 530) / 20)**2)
+    L[:H//3,       :, :] = sun
+    L[H//3:2*H//3, :, :] = tungsten
+    L[2*H//3:,     :, :] = led
+    rng = np.random.default_rng(0)
+    L *= (0.7 + 0.3 * rng.random((H, W)))[..., None]
+    return L
+
+
+# ---------- s(λ) : sensor response ----------
+def sensor_response(lam_nm, center, width):
+    return np.exp(-0.5 * ((lam_nm - center) / width)**2)
+
+
+# ---------- g[m,n] = ∫ s·L dλ + η ----------
+def form_image(L, lam_nm, center, width, lam1, lam2, noise_std=0.02):
+    s = sensor_response(lam_nm, center, width)
+    s_band = s * ((lam_nm >= lam1) & (lam_nm <= lam2))
+    g_int = trapezoid(L * s_band[None, None, :], lam_nm, axis=2)
+    eta = np.random.normal(0.0, noise_std, size=g_int.shape)
+    return g_int + eta, s
+
+
+# ---------- Demo ----------
+lam_nm = np.linspace(300, 1000, 1401)
+lam1, lam2 = 400.0, 700.0
+
+H, W = 120, 240
+L = make_scene_L(H, W, lam_nm)
+print(f"L(m,n,λ) shape : {L.shape}")
+
+g, s = form_image(L, lam_nm, 550.0, 60.0, lam1, lam2)
+print(f"g[m,n] shape   : {g.shape}")
+print(f"g min / mean / max : {g.min():.4f} / {g.mean():.4f} / {g.max():.4f}")
+
+g_ir, _ = form_image(L, lam_nm, 900.0, 120.0, 800.0, 1000.0)
+print(f"g_ir mean      : {g_ir.mean():.4f}")
+
+print("\nCheck: IR sensor [800,1000] cannot see LED at 530 nm.")
+print(f"  g_ir bottom strip mean : {g_ir[-20:].mean():.4f}")</pre>
+      <div id="out-img-exact" class="out">— خروجی اینجا نمایش داده می‌شود —</div>
+    </div>
+
+    <div class="note info">
+      <strong>📌 جمع‌بندی:</strong>
+      تصویر دیجیتال، حاصل سه‌گانهٔ «تابش طیفی صحنه + باند حساسیت حسگر + برهم‌کنش ماده با انرژی» است. هر یک از این سه، به‌تنهایی می‌تواند ماهیت تصویر نهایی را کاملاً تغییر دهد.
+    </div>
+  </div>
+
+  <!-- ========== تفاوت انرژی فوتون با شدت تابش ========== -->
+  <h2><span class="dot"></span>تفاوت انرژی فوتون با شدت تابش</h2>
+  <div class="card">
+    <p>
+      انرژی یک فوتون با تعداد فوتون‌های دریافت‌شده یکسان نیست. طبق رابطهٔ (۵)، باند طیفی انرژی هر فوتون را تعیین می‌کند؛ اما شدت تابش به نرخ انتقال انرژی و در نتیجه به تعداد فوتون‌های رسیده نیز وابسته است:
+    </p>
+    <div class="formula">
+      $$ I = \frac{N \cdot E}{A \cdot \Delta t} \tag{۱۳} $$
+    </div>
+
+    <h3>۱. انرژی فوتون — یک ویژگی «کوانتومی»</h3>
+    <p>انرژی هر فوتون تنها به <strong>بسامد</strong> (یا معادلاً طول موج) بستگی دارد:</p>
+    <div class="formula">
+      $$ E_{\text{photon}} = h\nu = \frac{hc}{\lambda} $$
+    </div>
+    <p>
+      این یک خاصیت <strong>تک‌فوتونی</strong> است: هر فوتون با طول موج $\lambda$ دقیقاً همان انرژی را دارد، صرف‌نظر از اینکه چند فوتون در پرتو وجود دارد.
+      در اثر فوتوالکتریک، اگر انرژی یک فوتون از تابع کار فلز کمتر باشد، هر تعداد فوتون هم که بتابانیم، الکترون آزاد نمی‌شود.
+    </p>
+
+    <h3>۲. شدت تابش — یک ویژگی «ماکروسکوپی»</h3>
+    <p>شدت تابش، انرژی‌ای است که در واحد زمان از واحد سطح عبور می‌کند. معنای هر جزء فرمول:</p>
+    <ul>
+      <li><strong>$N$</strong> : تعداد فوتون‌ها در بازهٔ زمانی $\Delta t$.</li>
+      <li><strong>$E$</strong> : انرژی هر فوتون (فقط به طول موج بستگی دارد).</li>
+      <li><strong>$A$</strong> : مساحت سطح.</li>
+      <li><strong>$\Delta t$</strong> : بازهٔ زمانی اندازه‌گیری.</li>
+    </ul>
+
+    <h3>۳. اثر هر کمیت بر شدت</h3>
+    <ul>
+      <li><strong>$N$ دو برابر ⇒ $I$ دو برابر.</strong></li>
+      <li><strong>$E$ دو برابر (λ نصف) ⇒ $I$ دو برابر.</strong></li>
+      <li><strong>$A$ دو برابر ⇒ $I$ نصف.</strong></li>
+      <li><strong>$\Delta t$ دو برابر ⇒ $I$ نصف.</strong></li>
+    </ul>
+
+    <h3>۴. دو مثال متضاد</h3>
+    <div class="example-box">
+      <strong>مثال ۱ — پرتو گامای کم‌شدت:</strong>
+      $N = 10^3$ فوتون، $E = 1\,\mathrm{MeV} \approx 1.6\times 10^{-13}\,\mathrm{J}$، $A = 1\,\mathrm{m^2}$، $\Delta t = 1\,\mathrm{s}$.
+      <span class="step">I = (10³ × 1.6×10⁻¹³) / (1 × 1) = 1.6×10⁻¹⁰ W/m²</span>
+      شدت بسیار پایین، اما هر فوتون پرانرژی و یونیزان است.
+    </div>
+    <div class="example-box">
+      <strong>مثال ۲ — لامپ فروسرخ پُرشدت:</strong>
+      $N = 10^{20}$ فوتون، $\lambda = 10\,\mu\mathrm{m}$، $E \approx 2\times 10^{-20}\,\mathrm{J}$، $A = 1\,\mathrm{m^2}$، $\Delta t = 1\,\mathrm{s}$.
+      <span class="step">I = (10²⁰ × 2×10⁻²⁰) / (1 × 1) = 2 W/m²</span>
+      شدت بسیار بالا، اما هر فوتون کم‌انرژی است و نمی‌تواند DNA را بشکند.
+    </div>
+
+    <h3>۵. جدول مقایسه</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ویژگی</th>
+            <th>انرژی فوتون ($E$)</th>
+            <th>شدت تابش ($I$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>وابسته به طول موج</td><td>بله (معکوس)</td><td>بله (از طریق $E$)</td></tr>
+          <tr><td>وابسته به تعداد فوتون</td><td>خیر</td><td>بله (مستقیم)</td></tr>
+          <tr><td>وابسته به سطح</td><td>خیر</td><td>بله (معکوس)</td></tr>
+          <tr><td>وابسته به زمان</td><td>خیر</td><td>بله (معکوس)</td></tr>
+          <tr><td>واحد</td><td>ژول یا الکترون‌ولت</td><td>وات بر مترمربع (W/m²)</td></tr>
+          <tr><td>ماهیت</td><td>کوانتومی</td><td>ماکروسکوپی</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>۶. کد پایتون — پیاده‌سازی دقیق معادلهٔ (۱۳)</h3>
+    <p class="muted">
+      این کد <strong>دقیقاً همان فرمول (۱۳)</strong> را پیاده می‌کند. هر چهار کمیت ($N$، $E$، $A$، $\Delta t$) صریحاً پارامتر هستند و $E$ مستقیماً از $E = hc/\lambda$ حساب می‌شود. با کلیک روی «اجرا» در مرورگر اجرا می‌شود.
+    </p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span><span class="lang">python</span> • intensity_exact.py</span>
+        <div class="actions">
+          <button class="btn copy" onclick="copyCode(this)">کپی</button>
+          <button class="btn run" onclick="runPython(this, 'out-int-exact')">اجرا</button>
+        </div>
+      </div>
+<pre># Exact implementation of:
+#   I = N · E / (A · Δt)        with   E = h·c / λ
+#
+# Every symbol appears explicitly:
+#   N   : number of photons
+#   E   : photon energy (E = h·c/λ)
+#   A   : surface area (m²)
+#   Δt  : time interval (s)
+#   I   : intensity (W/m²)
+
+import numpy as np
+
+h  = 6.62607015e-34
+c  = 2.99792458e8
+eV = 1.602176634e-19
+
+
+def photon_energy_J(lam_nm):
+    return h * c / (lam_nm * 1e-9)
+
+
+def photon_energy_eV(lam_nm):
+    return photon_energy_J(lam_nm) / eV
+
+
+def intensity(N, lam_nm, A, dt):
+    E = photon_energy_J(lam_nm)
+    return N * E / (A * dt)
+
+
+# --- Example 1: green light ---
+print("=" * 60)
+print("Example 1: green light")
+print("=" * 60)
+lam, N, A, dt = 550.0, 1e15, 0.01, 1.0
+E_J  = photon_energy_J(lam)
+E_eV = photon_energy_eV(lam)
+I    = intensity(N, lam, A, dt)
+print(f"  λ   = {lam} nm")
+print(f"  E   = {E_J:.4e} J   =   {E_eV:.3f} eV")
+print(f"  N   = {N:.2e} photons")
+print(f"  A   = {A} m²")
+print(f"  Δt  = {dt} s")
+print(f"  I   = N·E / (A·Δt) = {I:.4e} W/m²")
+
+
+# --- Example 2: same intensity, different energies ---
+print("\n" + "=" * 60)
+print("Example 2: same intensity, different photon energies")
+print("=" * 60)
+target_I = 1.0
+A = dt = 1.0
+
+lam_g, E_g = 0.001, photon_energy_J(0.001)
+N_g = target_I * A * dt / E_g
+lam_i, E_i = 10000.0, photon_energy_J(10000.0)
+N_i = target_I * A * dt / E_i
+
+print(f"  Target I = {target_I} W/m²   (A={A}, Δt={dt})")
+print(f"  Beam A (gamma, λ={lam_g} nm):")
+print(f"      E = {E_g:.3e} J = {E_g/eV/1e6:.3f} MeV")
+print(f"      N = I·A·Δt / E = {N_g:.3e} photons")
+print(f"  Beam B (far IR, λ={lam_i} nm):")
+print(f"      E = {E_i:.3e} J = {E_i/eV:.3f} eV")
+print(f"      N = I·A·Δt / E = {N_i:.3e} photons")
+print(f"  Ratio N_ir / N_gamma = {N_i/N_g:.3e}")
+print(f"  → Same I, photon counts differ by ~{np.log10(N_i/N_g):.0f} orders.")
+
+
+# --- Example 3: effect of each variable ---
+print("\n" + "=" * 60)
+print("Example 3: effect of each variable on I")
+print("=" * 60)
+bN, blam, bA, bdt = 1e15, 550.0, 0.01, 1.0
+I_b = intensity(bN, blam, bA, bdt)
+print(f"  Base: I_base = {I_b:.4e} W/m²\n")
+for name, N_, lam_, A_, dt_ in [
+    ("N doubled",             2*bN, blam,   bA,   bdt),
+    ("λ halved (E doubled)",  bN,   blam/2, bA,   bdt),
+    ("A doubled",             bN,   blam,   2*bA, bdt),
+    ("Δt doubled",            bN,   blam,   bA,   2*bdt),
+]:
+    I_ = intensity(N_, lam_, A_, dt_)
+    print(f"  {name:22s}  I = {I_:.4e} W/m²   (ratio = {I_/I_b:.3f})")</pre>
+      <div id="out-int-exact" class="out">— خروجی اینجا نمایش داده می‌شود —</div>
+    </div>
+
+    <div class="note warn">
+      <strong>⚠️ نتیجهٔ مهم:</strong>
+      یک پرتو گامای کم‌شدت می‌تواند فقط شامل چند فوتون در ثانیه باشد، اما هر فوتون انرژی میلیون‌ها الکترون‌ولت دارد و به‌شدت یونیزان است. در مقابل، یک لامپ فروسرخ پُرشدت، تریلیون‌ها فوتون کم‌انرژی گسیل می‌کند اما نمی‌تواند مولکول‌های DNA را بشکند. <strong>شدت بالا ≠ انرژی بالا</strong>.
+    </div>
+  </div>
+
+  <!-- ========== نکتهٔ آموزشی ========== -->
+  <h2><span class="dot"></span>نکتهٔ آموزشی</h2>
+  <div class="note">
+    الگوریتم‌های پردازش تصویر روی آرایه‌های عددی کار می‌کنند، اما معنای فیزیکی این اعداد در مدالیته‌های مختلف یکسان نیست. مقدار یک پیکسل می‌تواند نمایندهٔ شدت نور مرئی، میزان جذب پرتو ایکس، تابش حرارتی یا پاسخ رادار باشد. انتخاب مدل نویز، روش بهبود تصویر، الگوریتم بازسازی و شیوهٔ تفسیر نتیجه باید با فیزیک باند تصویربرداری سازگار باشد.
+  </div>
+
+  <footer>ساخته‌شده برای آموزش فیزیک تصویربرداری</footer>
+</div>
+
+<!-- ================ منطق تعاملی + Pyodide ================ -->
+<script>
+/* ---------- ثابت‌ها ---------- */
+const H  = 6.62607015e-34;
+const C  = 2.99792458e8;
+const EV = 1.602176634e-19;
+const LOG_MIN = Math.log10(1e-3);
+const LOG_MAX = Math.log10(1e12);
+
+function fmtSci(x, digits=2){
+  if (x === 0) return '0';
+  const exp  = Math.floor(Math.log10(Math.abs(x)));
+  const mant = x / Math.pow(10, exp);
+  return mant.toFixed(digits) + ' × 10' + sup(exp);
+}
+function sup(n){
+  const m = {'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','-':'⁻','.':'·'};
+  return String(n).split('').map(c=>m[c]||c).join('');
+}
+function fmtLam(nm){
+  if (nm < 1e-3)  return (nm*1e6).toFixed(2) + ' fm';
+  if (nm < 1)     return (nm*1e3).toFixed(1) + ' pm';
+  if (nm < 1e3)   return nm.toFixed(0) + ' nm';
+  if (nm < 1e6)   return (nm/1e3).toFixed(2) + ' μm';
+  if (nm < 1e9)   return (nm/1e6).toFixed(2) + ' mm';
+  if (nm < 1e12)  return (nm/1e9).toFixed(2) + ' m';
+  return (nm/1e12).toFixed(2) + ' km';
+}
+function classifyBand(lamNm){
+  if (lamNm < 1e-3) return 'پرتو گاما';
+  if (lamNm < 1e-2) return 'پرتو ایکس سخت';
+  if (lamNm < 10)   return 'پرتو ایکس نرم';
+  if (lamNm < 380)  return 'فرابنفش (UV)';
+  if (lamNm < 450)  return 'مرئی — بنفش';
+  if (lamNm < 495)  return 'مرئی — آبی';
+  if (lamNm < 570)  return 'مرئی — سبز';
+  if (lamNm < 590)  return 'مرئی — زرد';
+  if (lamNm < 620)  return 'مرئی — نارنجی';
+  if (lamNm < 780)  return 'مرئی — قرمز';
+  if (lamNm < 1e6)  return 'فروسرخ (IR)';
+  if (lamNm < 1e9)  return 'ریزموج';
+  return 'امواج رادیویی';
+}
+
+/* ---------- آزمایشگاه تعاملی ---------- */
+const slider  = document.getElementById('lambdaRange');
+const lamLbl  = document.getElementById('lambdaVal');
+const outLam  = document.getElementById('outLambda');
+const outNu   = document.getElementById('outNu');
+const outEeV  = document.getElementById('outEeV');
+const outEJ   = document.getElementById('outEJ');
+const outBand = document.getElementById('outBand');
+const marker  = document.getElementById('marker');
+const markerD = document.getElementById('markerDot');
+
+function updateFromSlider(){
+  const t     = slider.value / 1000;
+  const logL  = LOG_MIN + t * (LOG_MAX - LOG_MIN);
+  const lamNm = Math.pow(10, logL);
+
+  const lamM = lamNm * 1e-9;
+  const nu   = C / lamM;
+  const E    = H * nu;
+
+  lamLbl.textContent  = fmtLam(lamNm);
+  outLam.textContent  = fmtLam(lamNm);
+  outNu.textContent   = fmtSci(nu) + ' Hz';
+  outEeV.textContent  = (E / EV).toExponential(2) + ' eV';
+  outEJ.textContent   = fmtSci(E) + ' J';
+  outBand.textContent = classifyBand(lamNm);
+
+  const x = 20 + t * 860;
+  marker.setAttribute('x1', x);
+  marker.setAttribute('x2', x);
+  markerD.setAttribute('cx', x);
+}
+slider.addEventListener('input', updateFromSlider);
+updateFromSlider();
+
+/* ---------- کپی کد ---------- */
+function copyCode(btn){
+  const block = btn.closest('.code-block');
+  const code  = block.querySelector('pre').innerText;
+  navigator.clipboard.writeText(code).then(()=>{
+    const old = btn.textContent;
+    btn.textContent = 'کپی شد ✓';
+    setTimeout(()=> btn.textContent = old, 1400);
+  });
+}
+
+/* ---------- Pyodide ---------- */
+let pyodideReady = null;
+function ensurePyodide(){
+  if (!pyodideReady) {
+    pyodideReady = (async () => {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js';
+      const loaded = new Promise((res, rej) => {
+        script.onload  = res;
+        script.onerror = rej;
+        document.head.appendChild(script);
+      });
+      await loaded;
+      return await loadPyodide({
+        indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/',
+        stdout: () => {},
+        stderr: () => {}
+      });
+    })();
+  }
+  return pyodideReady;
+}
+
+async function runPython(btn, outId){
+  const block = btn.closest('.code-block');
+  const code  = block.querySelector('pre').innerText;
+  const out   = document.getElementById(outId);
+
+  out.classList.remove('err');
+  out.innerHTML = '<span class="loading">⏳ بارگذاری محیط پایتون (اولین بار چند ثانیه)...</span>';
+  btn.disabled  = true;
+  const oldTxt  = btn.textContent;
+  btn.textContent = 'در حال اجرا…';
+
+  try {
+    const py = await ensurePyodide();
+    // نصب numpy و scipy در صورت نیاز
+    await py.loadPackage(['numpy', 'scipy']);
+    let buffer = '';
+    py.setStdout({ batched: (s) => { buffer += s + '\n'; } });
+    py.setStderr({ batched: (s) => { buffer += s + '\n'; } });
+    await py.runPythonAsync(code);
+    out.textContent = buffer || '— بدون خروجی —';
+  } catch (err) {
+    out.innerHTML = '<span class="err">خطا:\n' + String(err) + '</span>';
+    out.classList.add('err');
+  } finally {
+    btn.disabled  = false;
+    btn.textContent = oldTxt;
+  }
+}
+
+window.addEventListener('load', () => {
+  setTimeout(() => { ensurePyodide().catch(()=>{}); }, 2500);
+});
+</script>
+</body>
+</html>
