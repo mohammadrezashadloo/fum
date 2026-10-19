@@ -222,68 +222,6 @@
     color:#0f172a;
   }
 
-  .code-block{
-    background:#f8fafc;
-    border:1px solid #cbd5e1;
-    border-radius:16px;
-    overflow:hidden;
-    margin:16px 0;
-    box-shadow:var(--shadow-soft);
-  }
-  .code-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    padding:10px 16px;
-    background:linear-gradient(180deg,#e2e8f0,#cbd5e1);
-    border-bottom:1px solid #cbd5e1;
-    font-family:monospace;
-    font-size:.85rem;
-    color:#1e293b;
-  }
-  .code-header .lang{color:#047857;font-weight:700}
-  .code-header .actions{display:flex;gap:8px}
-  .btn{
-    cursor:pointer;
-    border:none;
-    border-radius:10px;
-    padding:7px 14px;
-    font-weight:700;
-    font-family:inherit;
-    font-size:.85rem;
-    transition:transform .12s ease, filter .2s;
-  }
-  .btn:hover{transform:translateY(-1px);filter:brightness(1.05)}
-  .btn.run{background:linear-gradient(135deg,#059669,#10b981);color:#ffffff}
-  .btn.copy{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#ffffff}
-  pre{
-    padding:16px;
-    overflow-x:auto;
-    direction:ltr;
-    text-align:left;
-    font-family:'JetBrains Mono','Fira Code',monospace;
-    font-size:.9rem;
-    line-height:1.7;
-    color:#0f172a;
-    margin:0;
-    background:#f8fafc;
-  }
-  .out{
-    border-top:1px dashed #cbd5e1;
-    padding:12px 16px;
-    font-family:monospace;
-    font-size:.88rem;
-    color:#064e3b;
-    background:#ecfdf5;
-    white-space:pre-wrap;
-    direction:ltr;
-    text-align:left;
-    min-height:2.2rem;
-  }
-  .out .err{color:#b91c1c}
-  .loading{color:#b45309}
-
   footer{
     margin-top:50px;
     text-align:center;
@@ -415,99 +353,6 @@
     </div>
   </div>
 
-  <!-- ========== واحد الکترون ولت ========== -->
-  <h2><span class="dot"></span>واحد الکترون ولت (eV) — توضیح جامع</h2>
-  <div class="card">
-    <h3>۱. الکترون ولت چیست؟</h3>
-    <p>
-      <strong>الکترون ولت</strong> (با نماد $\mathrm{eV}$) یکی از رایج‌ترین واحدهای انرژی در فیزیک اتمی، فیزیک هسته‌ای، فیزیک حالت جامد و تصویربرداری پزشکی است.
-      تعریف دقیق آن بر اساس مفهوم <strong>اختلاف پتانسیل الکتریکی</strong> است:
-    </p>
-    <div class="note info">
-      <strong>تعریف:</strong>
-      یک الکترون ولت، مقدار انرژی‌ای است که یک <strong>الکترون</strong> (با بار $e$) هنگام عبور از اختلاف پتانسیل <strong>یک ولت</strong> به دست می‌آورد.
-    </div>
-    <p>کار انجام‌شده روی یک بار الکتریکی $q$ هنگام عبور از اختلاف پتانسیل $V$ برابر است با $W = qV$:</p>
-    <div class="formula">
-      $$ 1\,\mathrm{eV} = e \cdot 1\,\mathrm{V} = (1.602176634\times 10^{-19}\,\mathrm{C}) \cdot (1\,\mathrm{V}) = 1.602176634\times 10^{-19}\,\mathrm{J} \tag{۹} $$
-    </div>
-
-    <h3>۲. چرا از الکترون ولت استفاده می‌کنیم؟</h3>
-    <p>در فیزیک اتمی و مولکولی، انرژی‌ها معمولاً در محدودهٔ چند الکترون‌ولت هستند:</p>
-    <ul>
-      <li><strong>انرژی یونیزاسیون هیدروژن:</strong> $13.6\,\mathrm{eV}$.</li>
-      <li><strong>شکاف باند سیلیکون:</strong> $\approx 1.1\,\mathrm{eV}$.</li>
-      <li><strong>انرژی فوتون نور سبز:</strong> $\approx 2.25\,\mathrm{eV}$.</li>
-      <li><strong>انرژی فوتون پرتو ایکس تشخیصی:</strong> $20\,\mathrm{keV}$ تا $150\,\mathrm{keV}$.</li>
-      <li><strong>انرژی فوتون پرتو گامای پزشکی:</strong> $100\,\mathrm{keV}$ تا $1\,\mathrm{MeV}$.</li>
-    </ul>
-    <p>
-      اگر همان انرژی‌ها را بر حسب ژول بنویسیم، با اعدادی مانند $10^{-19}$ روبه‌رو می‌شویم. به همین دلیل، در این حوزه‌ها از الکترون ولت استفاده می‌کنیم.
-    </p>
-
-    <h3>۳. جدول تبدیل eV به ژول</h3>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>مقدار انرژی</th><th>بر حسب eV</th><th>بر حسب ژول</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>انرژی فوتون فروسرخ دور (۱۰ μm)</td><td>$0.124\,\mathrm{eV}$</td><td>$\approx 2.0\times 10^{-20}\,\mathrm{J}$</td></tr>
-          <tr><td>انرژی فوتون نور سبز (۵۵۰ nm)</td><td>$2.25\,\mathrm{eV}$</td><td>$\approx 3.6\times 10^{-19}\,\mathrm{J}$</td></tr>
-          <tr><td>انرژی یونیزاسیون هیدروژن</td><td>$13.6\,\mathrm{eV}$</td><td>$\approx 2.18\times 10^{-18}\,\mathrm{J}$</td></tr>
-          <tr><td>انرژی فوتون فرابنفش (۱۰۰ nm)</td><td>$12.4\,\mathrm{eV}$</td><td>$\approx 2.0\times 10^{-18}\,\mathrm{J}$</td></tr>
-          <tr><td>انرژی فوتون پرتو ایکس (۰.۱ nm)</td><td>$12.4\,\mathrm{keV}$</td><td>$\approx 2.0\times 10^{-15}\,\mathrm{J}$</td></tr>
-          <tr><td>انرژی فوتون گاما (۰.۰۰۱ nm)</td><td>$1.24\,\mathrm{MeV}$</td><td>$\approx 2.0\times 10^{-13}\,\mathrm{J}$</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>۴. استخراج ضریب ۱۲۴۰ گام‌به‌گام</h3>
-    <p><strong>گام ۱:</strong> از رابطهٔ (۷) شروع می‌کنیم:</p>
-    <div class="formula">
-      $$ E(\mathrm{J}) = \frac{hc}{\lambda(\mathrm{m})} $$
-    </div>
-    <p><strong>گام ۲:</strong> تبدیل طول موج از نانومتر به متر:</p>
-    <div class="formula">
-      $$ E(\mathrm{J}) = \frac{hc \times 10^{9}}{\lambda(\mathrm{nm})} $$
-    </div>
-    <p><strong>گام ۳:</strong> تبدیل ژول به الکترون ولت:</p>
-    <div class="formula">
-      $$ E(\mathrm{eV}) = \frac{hc \times 10^{9}}{1.602\times 10^{-19}} \cdot \frac{1}{\lambda(\mathrm{nm})} $$
-    </div>
-    <p><strong>گام ۴:</strong> محاسبهٔ ضریب عددی:</p>
-    <div class="formula">
-      $$ \frac{(1.986\times 10^{-25}) \times 10^{9}}{1.602\times 10^{-19}} \approx 1240\,\mathrm{eV\cdot nm} $$
-    </div>
-    <p><strong>گام ۵:</strong> نتیجهٔ نهایی:</p>
-    <div class="formula">
-      $$ \boxed{\;E(\mathrm{eV}) \approx \frac{1240}{\lambda(\mathrm{nm})}\;} \tag{۱۰} $$
-    </div>
-
-    <p><strong>مثال:</strong> نور سبز با $\lambda = 550\,\mathrm{nm}$:</p>
-    <div class="formula">
-      $$ E \approx \frac{1240}{550} \approx 2.25\,\mathrm{eV} \tag{۱۱} $$
-    </div>
-
-    <h3>۵. ارتباط eV با مفاهیم فیزیکی مهم</h3>
-    <ul>
-      <li><strong>انرژی یونیزاسیون اتم‌ها:</strong> برای جدا کردن الکترون از اتم، باید حداقل انرژی یونیزاسیون را بدهیم.</li>
-      <li><strong>شکاف باند نیمه‌رساناها:</strong> در سیلیکون، شکاف باند $1.1\,\mathrm{eV}$ است.</li>
-      <li><strong>آستانهٔ تشخیص در آشکارسازها:</strong> هر آشکارساز یک آستانهٔ انرژی دارد.</li>
-      <li><strong>آستانهٔ دز در پرتودرمانی:</strong> انرژی فوتون‌ها معمولاً بین $6\,\mathrm{MeV}$ تا $20\,\mathrm{MeV}$ است.</li>
-    </ul>
-
-    <div class="note info">
-      <strong>📌 نکات کلیدی:</strong>
-      <ul style="margin-top:8px">
-        <li>الکترون ولت واحد انرژی است، نه واحد ولتاژ یا بار.</li>
-        <li>یک الکترون ولت برابر با $1.602\times 10^{-19}$ ژول است.</li>
-        <li>تبدیل سریع طول موج (nm) به انرژی (eV) با $E \approx 1240/\lambda$ انجام می‌شود.</li>
-        <li>مقدار دقیق‌تر ضریب $1239.84$ است.</li>
-      </ul>
-    </div>
-  </div>
-
   <!-- ========== ارتباط طیف الکترومغناطیسی با تشکیل تصویر ========== -->
   <h2><span class="dot"></span>ارتباط طیف الکترومغناطیسی با تشکیل تصویر</h2>
   <div class="card">
@@ -527,13 +372,6 @@
       <li><strong>$\eta[m,n]$</strong> : <em>نویز اندازه‌گیری</em>. نویز حرارتی، نویز تاریکی، نویز خواندن و… .</li>
     </ul>
 
-    <h3>نقش سه عامل در تشکیل تصویر</h3>
-    <ul>
-      <li><strong>باند طیفی منبع تابش:</strong> انتخاب باند، انتخاب نوع تصویر است.</li>
-      <li><strong>برهم‌کنش انرژی با ماده:</strong> هر ماده در هر طول موج امضای طیفی مخصوص خود را دارد.</li>
-      <li><strong>پاسخ طیفی حسگر:</strong> اگر طول موج خارج از باند حساسیت باشد، مقدار پیکسل تقریباً صفر است.</li>
-    </ul>
-
     <h3>کاربرد باندها در تصویربرداری</h3>
     <ul>
       <li><strong>پرتو گاما:</strong> تصویربرداری پزشکی هسته‌ای (PET، SPECT) و مشاهدات نجومی پرانرژی؛</li>
@@ -544,95 +382,6 @@
       <li><strong>ریزموج:</strong> رادار و تصویربرداری در شرایط ابر، مه یا تاریکی؛</li>
       <li><strong>امواج رادیویی:</strong> تصویربرداری تشدید مغناطیسی (MRI) و رادیواخترشناسی.</li>
     </ul>
-
-    <h3>کد پایتون — پیاده‌سازی دقیق معادلهٔ (۱۲)</h3>
-    <p class="muted">
-      این کد <strong>دقیقاً همان فرمول (۱۲)</strong> را پیاده می‌کند. همهٔ نمادهای فرمول صریحاً در کد حضور دارند. با کلیک روی «اجرا» در مرورگر اجرا می‌شود.
-    </p>
-
-    <div class="code-block">
-      <div class="code-header">
-        <span><span class="lang">python</span> • image_formation_exact.py</span>
-        <div class="actions">
-          <button class="btn copy" onclick="copyCode(this)">کپی</button>
-          <button class="btn run" onclick="runPython(this, 'out-img-exact')">اجرا</button>
-        </div>
-      </div>
-<pre># Exact implementation of:
-#   g[m,n] = ∫_{λ1}^{λ2} s(λ) · L(m,n,λ) dλ + η[m,n]
-#
-# Every symbol appears explicitly:
-#   λ1, λ2   : sensor band limits (nm)
-#   s(λ)     : sensor spectral response
-#   L(m,n,λ) : spectral radiance at pixel (m,n)
-#   η[m,n]   : measurement noise
-#   g[m,n]   : resulting pixel value
-
-import numpy as np
-from scipy.integrate import trapezoid
-
-
-# ---------- L(m,n,λ) : scene spectral radiance ----------
-def planck_lambda(lam_nm, T):
-    """Planck blackbody (relative units)."""
-    lam_m = lam_nm * 1e-9
-    h, c, k = 6.62607015e-34, 2.99792458e8, 1.380649e-23
-    x = h * c / (lam_m * k * T)
-    x = np.clip(x, 1e-3, 700)
-    return (1.0 / lam_m**5) / (np.exp(x) - 1.0)
-
-
-def make_scene_L(H, W, lam_nm):
-    L = np.zeros((H, W, len(lam_nm)))
-    sun      = planck_lambda(lam_nm, 5800);  sun      /= sun.max()
-    tungsten = planck_lambda(lam_nm, 2800);  tungsten /= tungsten.max()
-    led      = np.exp(-0.5 * ((lam_nm - 530) / 20)**2)
-    L[:H//3,       :, :] = sun
-    L[H//3:2*H//3, :, :] = tungsten
-    L[2*H//3:,     :, :] = led
-    rng = np.random.default_rng(0)
-    L *= (0.7 + 0.3 * rng.random((H, W)))[..., None]
-    return L
-
-
-# ---------- s(λ) : sensor response ----------
-def sensor_response(lam_nm, center, width):
-    return np.exp(-0.5 * ((lam_nm - center) / width)**2)
-
-
-# ---------- g[m,n] = ∫ s·L dλ + η ----------
-def form_image(L, lam_nm, center, width, lam1, lam2, noise_std=0.02):
-    s = sensor_response(lam_nm, center, width)
-    s_band = s * ((lam_nm >= lam1) & (lam_nm <= lam2))
-    g_int = trapezoid(L * s_band[None, None, :], lam_nm, axis=2)
-    eta = np.random.normal(0.0, noise_std, size=g_int.shape)
-    return g_int + eta, s
-
-
-# ---------- Demo ----------
-lam_nm = np.linspace(300, 1000, 1401)
-lam1, lam2 = 400.0, 700.0
-
-H, W = 120, 240
-L = make_scene_L(H, W, lam_nm)
-print(f"L(m,n,λ) shape : {L.shape}")
-
-g, s = form_image(L, lam_nm, 550.0, 60.0, lam1, lam2)
-print(f"g[m,n] shape   : {g.shape}")
-print(f"g min / mean / max : {g.min():.4f} / {g.mean():.4f} / {g.max():.4f}")
-
-g_ir, _ = form_image(L, lam_nm, 900.0, 120.0, 800.0, 1000.0)
-print(f"g_ir mean      : {g_ir.mean():.4f}")
-
-print("\nCheck: IR sensor [800,1000] cannot see LED at 530 nm.")
-print(f"  g_ir bottom strip mean : {g_ir[-20:].mean():.4f}")</pre>
-      <div id="out-img-exact" class="out">— خروجی اینجا نمایش داده می‌شود —</div>
-    </div>
-
-    <div class="note info">
-      <strong>📌 جمع‌بندی:</strong>
-      تصویر دیجیتال، حاصل سه‌گانهٔ «تابش طیفی صحنه + باند حساسیت حسگر + برهم‌کنش ماده با انرژی» است. هر یک از این سه، به‌تنهایی می‌تواند ماهیت تصویر نهایی را کاملاً تغییر دهد.
-    </div>
   </div>
 
   <!-- ========== تفاوت انرژی فوتون با شدت تابش ========== -->
@@ -672,21 +421,7 @@ print(f"  g_ir bottom strip mean : {g_ir[-20:].mean():.4f}")</pre>
       <li><strong>$\Delta t$ دو برابر ⇒ $I$ نصف.</strong></li>
     </ul>
 
-    <h3>۴. دو مثال متضاد</h3>
-    <div class="example-box">
-      <strong>مثال ۱ — پرتو گامای کم‌شدت:</strong>
-      $N = 10^3$ فوتون، $E = 1\,\mathrm{MeV} \approx 1.6\times 10^{-13}\,\mathrm{J}$، $A = 1\,\mathrm{m^2}$، $\Delta t = 1\,\mathrm{s}$.
-      <span class="step">I = (10³ × 1.6×10⁻¹³) / (1 × 1) = 1.6×10⁻¹⁰ W/m²</span>
-      شدت بسیار پایین، اما هر فوتون پرانرژی و یونیزان است.
-    </div>
-    <div class="example-box">
-      <strong>مثال ۲ — لامپ فروسرخ پُرشدت:</strong>
-      $N = 10^{20}$ فوتون، $\lambda = 10\,\mu\mathrm{m}$، $E \approx 2\times 10^{-20}\,\mathrm{J}$، $A = 1\,\mathrm{m^2}$، $\Delta t = 1\,\mathrm{s}$.
-      <span class="step">I = (10²⁰ × 2×10⁻²⁰) / (1 × 1) = 2 W/m²</span>
-      شدت بسیار بالا، اما هر فوتون کم‌انرژی است و نمی‌تواند DNA را بشکند.
-    </div>
-
-    <h3>۵. جدول مقایسه</h3>
+    <h3>۴. جدول مقایسه</h3>
     <div class="table-wrap">
       <table>
         <thead>
@@ -706,123 +441,12 @@ print(f"  g_ir bottom strip mean : {g_ir[-20:].mean():.4f}")</pre>
         </tbody>
       </table>
     </div>
-
-    <h3>۶. کد پایتون — پیاده‌سازی دقیق معادلهٔ (۱۳)</h3>
-    <p class="muted">
-      این کد <strong>دقیقاً همان فرمول (۱۳)</strong> را پیاده می‌کند. هر چهار کمیت ($N$، $E$، $A$، $\Delta t$) صریحاً پارامتر هستند و $E$ مستقیماً از $E = hc/\lambda$ حساب می‌شود. با کلیک روی «اجرا» در مرورگر اجرا می‌شود.
-    </p>
-
-    <div class="code-block">
-      <div class="code-header">
-        <span><span class="lang">python</span> • intensity_exact.py</span>
-        <div class="actions">
-          <button class="btn copy" onclick="copyCode(this)">کپی</button>
-          <button class="btn run" onclick="runPython(this, 'out-int-exact')">اجرا</button>
-        </div>
-      </div>
-<pre># Exact implementation of:
-#   I = N · E / (A · Δt)        with   E = h·c / λ
-#
-# Every symbol appears explicitly:
-#   N   : number of photons
-#   E   : photon energy (E = h·c/λ)
-#   A   : surface area (m²)
-#   Δt  : time interval (s)
-#   I   : intensity (W/m²)
-
-import numpy as np
-
-h  = 6.62607015e-34
-c  = 2.99792458e8
-eV = 1.602176634e-19
-
-
-def photon_energy_J(lam_nm):
-    return h * c / (lam_nm * 1e-9)
-
-
-def photon_energy_eV(lam_nm):
-    return photon_energy_J(lam_nm) / eV
-
-
-def intensity(N, lam_nm, A, dt):
-    E = photon_energy_J(lam_nm)
-    return N * E / (A * dt)
-
-
-# --- Example 1: green light ---
-print("=" * 60)
-print("Example 1: green light")
-print("=" * 60)
-lam, N, A, dt = 550.0, 1e15, 0.01, 1.0
-E_J  = photon_energy_J(lam)
-E_eV = photon_energy_eV(lam)
-I    = intensity(N, lam, A, dt)
-print(f"  λ   = {lam} nm")
-print(f"  E   = {E_J:.4e} J   =   {E_eV:.3f} eV")
-print(f"  N   = {N:.2e} photons")
-print(f"  A   = {A} m²")
-print(f"  Δt  = {dt} s")
-print(f"  I   = N·E / (A·Δt) = {I:.4e} W/m²")
-
-
-# --- Example 2: same intensity, different energies ---
-print("\n" + "=" * 60)
-print("Example 2: same intensity, different photon energies")
-print("=" * 60)
-target_I = 1.0
-A = dt = 1.0
-
-lam_g, E_g = 0.001, photon_energy_J(0.001)
-N_g = target_I * A * dt / E_g
-lam_i, E_i = 10000.0, photon_energy_J(10000.0)
-N_i = target_I * A * dt / E_i
-
-print(f"  Target I = {target_I} W/m²   (A={A}, Δt={dt})")
-print(f"  Beam A (gamma, λ={lam_g} nm):")
-print(f"      E = {E_g:.3e} J = {E_g/eV/1e6:.3f} MeV")
-print(f"      N = I·A·Δt / E = {N_g:.3e} photons")
-print(f"  Beam B (far IR, λ={lam_i} nm):")
-print(f"      E = {E_i:.3e} J = {E_i/eV:.3f} eV")
-print(f"      N = I·A·Δt / E = {N_i:.3e} photons")
-print(f"  Ratio N_ir / N_gamma = {N_i/N_g:.3e}")
-print(f"  → Same I, photon counts differ by ~{np.log10(N_i/N_g):.0f} orders.")
-
-
-# --- Example 3: effect of each variable ---
-print("\n" + "=" * 60)
-print("Example 3: effect of each variable on I")
-print("=" * 60)
-bN, blam, bA, bdt = 1e15, 550.0, 0.01, 1.0
-I_b = intensity(bN, blam, bA, bdt)
-print(f"  Base: I_base = {I_b:.4e} W/m²\n")
-for name, N_, lam_, A_, dt_ in [
-    ("N doubled",             2*bN, blam,   bA,   bdt),
-    ("λ halved (E doubled)",  bN,   blam/2, bA,   bdt),
-    ("A doubled",             bN,   blam,   2*bA, bdt),
-    ("Δt doubled",            bN,   blam,   bA,   2*bdt),
-]:
-    I_ = intensity(N_, lam_, A_, dt_)
-    print(f"  {name:22s}  I = {I_:.4e} W/m²   (ratio = {I_/I_b:.3f})")</pre>
-      <div id="out-int-exact" class="out">— خروجی اینجا نمایش داده می‌شود —</div>
-    </div>
-
-    <div class="note warn">
-      <strong>⚠️ نتیجهٔ مهم:</strong>
-      یک پرتو گامای کم‌شدت می‌تواند فقط شامل چند فوتون در ثانیه باشد، اما هر فوتون انرژی میلیون‌ها الکترون‌ولت دارد و به‌شدت یونیزان است. در مقابل، یک لامپ فروسرخ پُرشدت، تریلیون‌ها فوتون کم‌انرژی گسیل می‌کند اما نمی‌تواند مولکول‌های DNA را بشکند. <strong>شدت بالا ≠ انرژی بالا</strong>.
-    </div>
   </div>
 
-  <!-- ========== نکتهٔ آموزشی ========== -->
-  <h2><span class="dot"></span>نکتهٔ آموزشی</h2>
-  <div class="note">
-    الگوریتم‌های پردازش تصویر روی آرایه‌های عددی کار می‌کنند، اما معنای فیزیکی این اعداد در مدالیته‌های مختلف یکسان نیست. مقدار یک پیکسل می‌تواند نمایندهٔ شدت نور مرئی، میزان جذب پرتو ایکس، تابش حرارتی یا پاسخ رادار باشد. انتخاب مدل نویز، روش بهبود تصویر، الگوریتم بازسازی و شیوهٔ تفسیر نتیجه باید با فیزیک باند تصویربرداری سازگار باشد.
-  </div>
-
-  <footer>ساخته‌شده برای آموزش فیزیک تصویربرداری</footer>
+  <footer>محمدرضا شادلو</footer>
 </div>
 
-<!-- ================ منطق تعاملی + Pyodide ================ -->
+<!-- ================ منطق تعاملی ================ -->
 <script>
 /* ---------- ثابت‌ها ---------- */
 const H  = 6.62607015e-34;
@@ -900,73 +524,6 @@ function updateFromSlider(){
 }
 slider.addEventListener('input', updateFromSlider);
 updateFromSlider();
-
-/* ---------- کپی کد ---------- */
-function copyCode(btn){
-  const block = btn.closest('.code-block');
-  const code  = block.querySelector('pre').innerText;
-  navigator.clipboard.writeText(code).then(()=>{
-    const old = btn.textContent;
-    btn.textContent = 'کپی شد ✓';
-    setTimeout(()=> btn.textContent = old, 1400);
-  });
-}
-
-/* ---------- Pyodide ---------- */
-let pyodideReady = null;
-function ensurePyodide(){
-  if (!pyodideReady) {
-    pyodideReady = (async () => {
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js';
-      const loaded = new Promise((res, rej) => {
-        script.onload  = res;
-        script.onerror = rej;
-        document.head.appendChild(script);
-      });
-      await loaded;
-      return await loadPyodide({
-        indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/',
-        stdout: () => {},
-        stderr: () => {}
-      });
-    })();
-  }
-  return pyodideReady;
-}
-
-async function runPython(btn, outId){
-  const block = btn.closest('.code-block');
-  const code  = block.querySelector('pre').innerText;
-  const out   = document.getElementById(outId);
-
-  out.classList.remove('err');
-  out.innerHTML = '<span class="loading">⏳ بارگذاری محیط پایتون (اولین بار چند ثانیه)...</span>';
-  btn.disabled  = true;
-  const oldTxt  = btn.textContent;
-  btn.textContent = 'در حال اجرا…';
-
-  try {
-    const py = await ensurePyodide();
-    // نصب numpy و scipy در صورت نیاز
-    await py.loadPackage(['numpy', 'scipy']);
-    let buffer = '';
-    py.setStdout({ batched: (s) => { buffer += s + '\n'; } });
-    py.setStderr({ batched: (s) => { buffer += s + '\n'; } });
-    await py.runPythonAsync(code);
-    out.textContent = buffer || '— بدون خروجی —';
-  } catch (err) {
-    out.innerHTML = '<span class="err">خطا:\n' + String(err) + '</span>';
-    out.classList.add('err');
-  } finally {
-    btn.disabled  = false;
-    btn.textContent = oldTxt;
-  }
-}
-
-window.addEventListener('load', () => {
-  setTimeout(() => { ensurePyodide().catch(()=>{}); }, 2500);
-});
 </script>
 </body>
 </html>
